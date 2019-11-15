@@ -1,0 +1,53 @@
+type Query {
+    Posts(
+        action: String @doc(description: "")
+        filter: PostsFilterInput @doc(description: "")
+        authorName: String @doc(description: "")
+        tagName: String @doc(description: "")
+        authorId: Int @doc(description: "")
+        postId: Int @doc(description: "")
+        pageSize: Int = 10 @doc(description: "How many items should show on the page")
+        currentPage: Int = 1 @doc(description: "Allows to ussing paging it start with 1")
+    ):PostsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Posts") @doc(description: "Posts")
+}
+
+input PostsFilterInput {
+    name: FilterTypeInput  @doc(description: ""),
+    post_id: FilterTypeInput  @doc(description: ""),
+    store_ids: FilterTypeInput  @doc(description: ""),
+    enabled: FilterTypeInput  @doc(description: ""),
+    url_key: FilterTypeInput  @doc(description: ""),
+    allow_comment: FilterTypeInput  @doc(description: ""),
+    created_at: FilterTypeInput  @doc(description: ""),
+    updated_at: FilterTypeInput  @doc(description: ""),
+    author_id: FilterTypeInput  @doc(description: ""),
+    publish_date: FilterTypeInput  @doc(description: "")
+}
+
+type PostsOutput {
+    total_count: Int @doc(description: "")
+    items: [Post] @doc(description: "")
+}
+
+type Post {
+    post_id: Int @doc(description: ""),
+    name: String @doc(description: ""),
+    short_description: String @doc(description: ""),
+    post_content: String @doc(description: ""),
+    store_ids: Int @doc(description: ""),
+    image: String @doc(description: ""),
+    enabled: Int @doc(description: ""),
+    url_key: String @doc(description: ""),
+    in_rss: Int @doc(description: ""),
+    allow_comment: Int @doc(description: ""),
+    meta_title: String @doc(description: ""),
+    meta_keywords: String @doc(description: ""),
+    meta_description: String @doc(description: ""),
+    meta_robots: String @doc(description: ""),
+    created_at: String @doc(description: ""),
+    updated_at: String @doc(description: ""),
+    author_id: Int @doc(description: ""),
+    publish_date: String @doc(description: ""),
+    import_source: String @doc(description: ""),
+    layout: String @doc(description: "")
+}
