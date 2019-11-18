@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Mageplaza\BlogGraphQl\Model\Resolver;
 
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Mageplaza\Blog\Helper\Data;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\Builder as SearchCriteriaBuilder;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Mageplaza\Blog\Model\ResourceModel\Post\Collection;
 
 /**
  * Class GetPosts
@@ -95,7 +98,7 @@ class Posts implements ResolverInterface
     }
 
     /**
-     * @return \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
+     * @return AbstractCollection
      */
     protected function getPostList()
     {
@@ -107,7 +110,7 @@ class Posts implements ResolverInterface
     /**
      * @param $args
      *
-     * @return \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
+     * @return AbstractCollection
      * @throws GraphQlInputException
      */
     protected function getPostViewByAuthorName($args)
@@ -126,7 +129,7 @@ class Posts implements ResolverInterface
     /**
      * @param $args
      *
-     * @return \Mageplaza\Blog\Model\ResourceModel\Post\Collection
+     * @return Collection
      * @throws GraphQlInputException
      */
     public function getPostByCategoryId($args)
@@ -196,9 +199,9 @@ class Posts implements ResolverInterface
     /**
      * @param $args
      *
-     * @return \Mageplaza\Blog\Model\ResourceModel\Post\Collection|null
+     * @return Collection|null
      * @throws GraphQlInputException
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      */
     protected function getRelatedPost($args)
     {

@@ -116,4 +116,3 @@ class Categories implements ResolverInterface
         }
     }
 }
-
