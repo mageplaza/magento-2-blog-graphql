@@ -36,6 +36,21 @@ class FilterArgument implements FieldEntityAttributesInterface
         foreach ($this->config->getConfigElement('Post')->getFields() as $field) {
             $fields[$field->getName()] = '';
         }
+        foreach ($this->config->getConfigElement('Topic')->getFields() as $field) {
+            $fields[$field->getName()] = '';
+        }
+        foreach ($this->config->getConfigElement('Tag')->getFields() as $field) {
+            $fields[$field->getName()] = '';
+        }
+        foreach ($this->config->getConfigElement('Category')->getFields() as $field) {
+            $fields[$field->getName()] = '';
+        }
+        foreach ($this->config->getConfigElement('Comment')->getFields() as $field) {
+            $fields[$field->getName()] = '';
+        }
+        foreach ($this->config->getConfigElement('Product')->getFields() as $field) {
+            $fields[$field->getName()] = '';
+        }
 
         return array_keys($fields);
     }

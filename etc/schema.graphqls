@@ -1,14 +1,49 @@
 type Query {
     Posts(
-        action: String @doc(description: "")
+        action: String! @doc(description: "")
         filter: PostsFilterInput @doc(description: "")
         authorName: String @doc(description: "")
         tagName: String @doc(description: "")
         authorId: Int @doc(description: "")
+        topicId: Int @doc(description: "")
+        categoryId: Int @doc(description: "")
+        categoryKey: Int @doc(description: "")
+        postId: Int @doc(description: "")
+        pageSize: Int = 10 @doc(description: "How many items should show on the page")
+        currentPage: Int = 1 @doc(description: "Allows to using paging it start with 1")
+    ):PostsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Posts") @doc(description: "Posts")
+    Tags(
+        filter: TagsFilterInput @doc(description: "")
+        pageSize: Int = 10 @doc(description: "How many items should show on the page")
+        currentPage: Int = 1 @doc(description: "Allows to ussing paging it start with 1")
+    ):TagsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Tags") @doc(description: "Tags")
+    Topics(
+        filter: TopicsFilterInput @doc(description: "")
+        pageSize: Int = 10 @doc(description: "How many items should show on the page")
+        currentPage: Int = 1 @doc(description: "Allows to ussing paging it start with 1")
+    ):TopicsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Topics") @doc(description: "Topics")
+    Categories(
+        action: String! @doc(description: "")
+        filter: CategoriesFilterInput @doc(description: "")
+        categoryId: Int @doc(description: "")
         postId: Int @doc(description: "")
         pageSize: Int = 10 @doc(description: "How many items should show on the page")
         currentPage: Int = 1 @doc(description: "Allows to ussing paging it start with 1")
-    ):PostsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Posts") @doc(description: "Posts")
+    ):CategoriesOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Categories") @doc(description: "Categories")
+    Comments(
+        filter: CommentsFilterInput @doc(description: "")
+        pageSize: Int = 10 @doc(description: "How many items should show on the page")
+        currentPage: Int = 1 @doc(description: "Allows to ussing paging it start with 1")
+    ):CommentsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Comments") @doc(description: "Comment")
+    Likes(
+        postId: Int @doc(description: "")
+    ):LikesOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Likes") @doc(description: "Comment")
+    PostProducts(
+        filter: ProductsFilterInput @doc(description: "")
+        postId: Int @doc(description: "")
+        pageSize: Int = 10 @doc(description: "How many items should show on the page")
+        currentPage: Int = 1 @doc(description: "Allows to ussing paging it start with 1")
+    ):ProductsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Products") @doc(description: "Comment")
 }
 
 input PostsFilterInput {
@@ -21,12 +56,104 @@ input PostsFilterInput {
     created_at: FilterTypeInput  @doc(description: ""),
     updated_at: FilterTypeInput  @doc(description: ""),
     author_id: FilterTypeInput  @doc(description: ""),
+    import_source: FilterTypeInput  @doc(description: ""),
     publish_date: FilterTypeInput  @doc(description: "")
 }
 
+input TagsFilterInput {
+    name: FilterTypeInput  @doc(description: ""),
+    tag_id: FilterTypeInput  @doc(description: ""),
+    store_ids: FilterTypeInput  @doc(description: ""),
+    enabled: FilterTypeInput  @doc(description: ""),
+    url_key: FilterTypeInput  @doc(description: ""),
+    created_at: FilterTypeInput  @doc(description: ""),
+    updated_at: FilterTypeInput  @doc(description: ""),
+    import_source: FilterTypeInput  @doc(description: "")
+}
+
+input TopicsFilterInput {
+    name: FilterTypeInput  @doc(description: ""),
+    topic_id: FilterTypeInput  @doc(description: ""),
+    store_ids: FilterTypeInput  @doc(description: ""),
+    enabled: FilterTypeInput  @doc(description: ""),
+    url_key: FilterTypeInput  @doc(description: ""),
+    created_at: FilterTypeInput  @doc(description: ""),
+    updated_at: FilterTypeInput  @doc(description: ""),
+    import_source: FilterTypeInput  @doc(description: "")
+}
+
+input CategoriesFilterInput {
+    name: FilterTypeInput  @doc(description: ""),
+    category_id: FilterTypeInput  @doc(description: ""),
+    parent_id: FilterTypeInput  @doc(description: ""),
+    store_ids: FilterTypeInput  @doc(description: ""),
+    position: FilterTypeInput  @doc(description: ""),
+    level: FilterTypeInput  @doc(description: ""),
+    enabled: FilterTypeInput  @doc(description: ""),
+    url_key: FilterTypeInput  @doc(description: ""),
+    created_at: FilterTypeInput  @doc(description: ""),
+    updated_at: FilterTypeInput  @doc(description: ""),
+    import_source: FilterTypeInput  @doc(description: "")
+}
+
+input CommentsFilterInput {
+    comment_id: FilterTypeInput  @doc(description: ""),
+    post_id: FilterTypeInput  @doc(description: ""),
+    entity_id: FilterTypeInput  @doc(description: ""),
+    has_reply: FilterTypeInput  @doc(description: ""),
+    is_reply: FilterTypeInput  @doc(description: ""),
+    reply_id: FilterTypeInput  @doc(description: ""),
+    status: FilterTypeInput  @doc(description: ""),
+    store_ids: FilterTypeInput  @doc(description: ""),
+    user_name: FilterTypeInput  @doc(description: ""),
+    user_email: FilterTypeInput  @doc(description: ""),
+    updated_at: FilterTypeInput  @doc(description: ""),
+    import_source: FilterTypeInput  @doc(description: "")
+}
+
+input ProductsFilterInput {
+    type_id: FilterTypeInput  @doc(description: ""),
+    attribute_set_id: FilterTypeInput  @doc(description: ""),
+    entity_id: FilterTypeInput  @doc(description: ""),
+    sku: FilterTypeInput  @doc(description: ""),
+    has_options: FilterTypeInput  @doc(description: ""),
+    required_options: FilterTypeInput  @doc(description: ""),
+    updated_at: FilterTypeInput  @doc(description: ""),
+    created_at: FilterTypeInput  @doc(description: "")
+}
+
 type PostsOutput {
-    total_count: Int @doc(description: "")
+    total_count: Int @doc(description: ""),
     items: [Post] @doc(description: "")
+}
+
+type LikesOutput {
+    total: Int
+}
+
+type ProductsOutput {
+    total_count: Int @doc(description: ""),
+    items: [Product] @doc(description: "")
+}
+
+type TagsOutput {
+    total_count: Int @doc(description: ""),
+    items: [Tag] @doc(description: "")
+}
+
+type TopicsOutput {
+    total_count: Int @doc(description: ""),
+    items: [Topic] @doc(description: "")
+}
+
+type CategoriesOutput {
+    total_count: Int @doc(description: ""),
+    items: [Category] @doc(description: "")
+}
+
+type CommentsOutput {
+    total_count: Int @doc(description: ""),
+    items: [Comment] @doc(description: "")
 }
 
 type Post {
@@ -50,4 +177,83 @@ type Post {
     publish_date: String @doc(description: ""),
     import_source: String @doc(description: ""),
     layout: String @doc(description: "")
+}
+
+type Tag {
+    tag_id: Int @doc(description: ""),
+    name: String @doc(description: ""),
+    description: String @doc(description: ""),
+    store_ids: Int @doc(description: ""),
+    enabled: Int @doc(description: ""),
+    url_key: String @doc(description: ""),
+    meta_title: String @doc(description: ""),
+    meta_keywords: String @doc(description: ""),
+    meta_description: String @doc(description: ""),
+    meta_robots: String @doc(description: ""),
+    created_at: String @doc(description: ""),
+    updated_at: String @doc(description: ""),
+    import_source: String @doc(description: "")
+}
+
+type Topic {
+    topic_id: Int @doc(description: ""),
+    name: String @doc(description: ""),
+    description: String @doc(description: ""),
+    store_ids: Int @doc(description: ""),
+    enabled: Int @doc(description: ""),
+    url_key: String @doc(description: ""),
+    meta_title: String @doc(description: ""),
+    meta_keywords: String @doc(description: ""),
+    meta_description: String @doc(description: ""),
+    meta_robots: String @doc(description: ""),
+    created_at: String @doc(description: ""),
+    updated_at: String @doc(description: ""),
+    import_source: String @doc(description: "")
+}
+
+type Comment {
+    comment_id: Int @doc(description: ""),
+    post_id: Int @doc(description: ""),
+    entity_id: Int @doc(description: ""),
+    has_reply: Int @doc(description: ""),
+    is_reply: Int @doc(description: ""),
+    content: String @doc(description: ""),
+    created_at: String @doc(description: ""),
+    status: Int @doc(description: ""),
+    store_ids: Int @doc(description: ""),
+    user_name: String @doc(description: ""),
+    user_email: String @doc(description: ""),
+    import_source: String @doc(description: "")
+}
+
+type Category {
+    category_id: Int @doc(description: ""),
+    name: String @doc(description: ""),
+    url_key: String @doc(description: ""),
+    description: String @doc(description: ""),
+    store_ids: Int @doc(description: ""),
+    enabled: Int @doc(description: ""),
+    meta_title: String @doc(description: ""),
+    meta_keywords: String @doc(description: ""),
+    meta_description: String @doc(description: ""),
+    meta_robots: String @doc(description: ""),
+    parent_id: Int @doc(description: ""),
+    path: String @doc(description: ""),
+    position: Int @doc(description: ""),
+    level: Int @doc(description: ""),
+    children_count: Int @doc(description: ""),
+    created_at: String @doc(description: ""),
+    updated_at: String @doc(description: ""),
+    import_source: String @doc(description: "")
+}
+
+type Product {
+    entity_id: Int @doc(description: ""),
+    attribute_set_id: Int @doc(description: ""),
+    type_id: String @doc(description: ""),
+    sku: String @doc(description: ""),
+    has_options: Int @doc(description: ""),
+    required_options: Int @doc(description: ""),
+    created_at: String @doc(description: ""),
+    updated_at: String @doc(description: "")
 }

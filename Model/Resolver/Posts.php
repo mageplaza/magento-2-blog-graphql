@@ -56,7 +56,7 @@ class Posts implements ResolverInterface
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $this->vaildateArgs($args);
-        $searchCriteria = $this->searchCriteriaBuilder->build('get_posts', $args);
+        $searchCriteria = $this->searchCriteriaBuilder->build('posts', $args);
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
 
@@ -70,8 +70,17 @@ class Posts implements ResolverInterface
             case 'get_post_by_tagName':
                 $collection = $this->getPostViewByTagName($args);
                 break;
+            case 'get_post_by_topic':
+                $collection = $this->getPostViewByTopic($args);
+                break;
             case 'get_related_post':
                 $collection = $this->getRelatedPost($args);
+                break;
+            case 'get_post_by_categoryId':
+                $collection = $this->getPostByCategoryId($args);
+                break;
+            case 'get_post_by_categoryKey':
+                $collection = $this->getPostByCategoryKey($args);
                 break;
             default:
                 throw new GraphQlInputException(__('No find your function'));
@@ -91,6 +100,7 @@ class Posts implements ResolverInterface
     protected function getPostList()
     {
         $collection = $this->_helperData->getFactoryByType()->create()->getCollection();
+
         return $collection;
     }
 
@@ -116,6 +126,41 @@ class Posts implements ResolverInterface
     /**
      * @param $args
      *
+     * @return \Mageplaza\Blog\Model\ResourceModel\Post\Collection
+     * @throws GraphQlInputException
+     */
+    public function getPostByCategoryId($args)
+    {
+        if (!isset($args['categoryId'])) {
+            throw new GraphQlInputException(__('categoryId value is not null'));
+        }
+        $category        = $this->_helperData->getFactoryByType('category')->create()->load($args['categoryId']);
+        $collection = $category->getSelectedPostsCollection();
+
+        return $collection;
+    }
+
+    /**
+     * @param $args
+     *
+     * @return mixed
+     * @throws GraphQlInputException
+     */
+    protected function getPostByCategoryKey($args)
+    {
+        if (!isset($args['categoryKey'])) {
+            throw new GraphQlInputException(__('categoryKey value is not null'));
+        }
+        $category        = $this->_helperData->getFactoryByType('category')->create()->getCollection()
+            ->addFieldToFilter('url_key', $args['categoryKey'])->getFirstItem();
+        $collection = $category->getSelectedPostsCollection();
+
+        return $collection;
+    }
+
+    /**
+     * @param $args
+     *
      * @return mixed
      * @throws GraphQlInputException
      */
@@ -134,6 +179,23 @@ class Posts implements ResolverInterface
     /**
      * @param $args
      *
+     * @return mixed
+     * @throws GraphQlInputException
+     */
+    protected function getPostViewByTopic($args)
+    {
+        if (!isset($args['topicId'])) {
+            throw new GraphQlInputException(__('topicId value is not null'));
+        }
+        $topic        = $this->_helperData->getFactoryByType('topic')->create()->load($args['topicId']);
+        $collection = $topic->getSelectedPostsCollection();
+
+        return $collection;
+    }
+
+    /**
+     * @param $args
+     *
      * @return \Mageplaza\Blog\Model\ResourceModel\Post\Collection|null
      * @throws GraphQlInputException
      * @throws \Magento\Framework\Exception\LocalizedException
@@ -143,7 +205,7 @@ class Posts implements ResolverInterface
         if (!isset($args['postId'])) {
             throw new GraphQlInputException(__('postId value is not null'));
         }
-        $post = $this->_helperData->getFactoryByType()->create()->load($args['postId']);
+        $post       = $this->_helperData->getFactoryByType()->create()->load($args['postId']);
         $collection = $post->getRelatedPostsCollection();
 
         return $collection;
