@@ -176,8 +176,7 @@ type Post {
     author_id: Int @doc(description: ""),
     publish_date: String @doc(description: ""),
     import_source: String @doc(description: ""),
-    layout: String @doc(description: ""),
-    categories: [Category] @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Category")
+    layout: String @doc(description: "")
 }
 
 type Tag {
