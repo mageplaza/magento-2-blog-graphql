@@ -63,6 +63,23 @@ class Products implements ResolverInterface
         $collection = $post->getSelectedProductsCollection();
         $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'product', $collection);
 
+        //possible division by 0
+        if ($searchCriteria->getPageSize()) {
+            $maxPages = ceil($searchResult->getTotalCount() / $searchCriteria->getPageSize());
+        } else {
+            $maxPages = 0;
+        }
+
+        $currentPage = $searchCriteria->getCurrentPage();
+        if ($searchCriteria->getCurrentPage() > $maxPages && $searchResult->getTotalCount() > 0) {
+            throw new GraphQlInputException(
+                __(
+                    'currentPage value %1 specified is greater than the %2 page(s) available.',
+                    [$currentPage, $maxPages]
+                )
+            );
+        }
+
         return [
             'total_count' => $searchResult->getTotalCount(),
             'items'       => $searchResult->getItemsSearchResult()

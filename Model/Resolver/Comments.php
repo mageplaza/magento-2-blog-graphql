@@ -64,6 +64,23 @@ class Comments implements ResolverInterface
         $this->collectionProcessor->process($searchCriteria, $collection);
         $collection->setSearchCriteria($searchCriteria);
 
+        //possible division by 0
+        if ($searchCriteria->getPageSize()) {
+            $maxPages = ceil($collection->getTotalCount() / $searchCriteria->getPageSize());
+        } else {
+            $maxPages = 0;
+        }
+
+        $currentPage = $searchCriteria->getCurrentPage();
+        if ($searchCriteria->getCurrentPage() > $maxPages && $collection->getTotalCount() > 0) {
+            throw new GraphQlInputException(
+                __(
+                    'currentPage value %1 specified is greater than the %2 page(s) available.',
+                    [$currentPage, $maxPages]
+                )
+            );
+        }
+
         return [
             'total_count' => $collection->getTotalCount(),
             'items'       => $collection->getItems()
