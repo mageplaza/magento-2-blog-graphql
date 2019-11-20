@@ -7,7 +7,9 @@ declare(strict_types=1);
 
 namespace Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider;
 
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Mageplaza\Blog\Model\ResourceModel\Post\Collection;
 use Mageplaza\Blog\Model\ResourceModel\Post\CollectionFactory;
 use Magento\Catalog\Api\Data\ProductSearchResultsInterfaceFactory;
 use Magento\Framework\Api\SearchResultsInterface;
@@ -28,17 +30,25 @@ class Post
     private $searchResultsFactory;
 
     /**
+     * @var CollectionProcessorInterface
+     */
+    protected $collectionProcessor;
+
+    /**
      * Post constructor.
      *
      * @param CollectionFactory $collectionFactory
+     * @param CollectionProcessorInterface $collectionProcessor
      * @param ProductSearchResultsInterfaceFactory $searchResultsFactory
      */
     public function __construct(
         CollectionFactory $collectionFactory,
+        CollectionProcessorInterface $collectionProcessor,
         ProductSearchResultsInterfaceFactory $searchResultsFactory
     ) {
         $this->collectionFactory    = $collectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
+        $this->collectionProcessor = $collectionProcessor;
     }
 
     /**
@@ -54,10 +64,11 @@ class Post
         SearchCriteriaInterface $searchCriteria,
         $collection
     ): SearchResultsInterface {
-        /** @var \Mageplaza\Blog\Model\ResourceModel\Post\Collection $collection */
+        /** @var Collection $collection */
         if (!$collection) {
             $collection = $this->collectionFactory->create();
         }
+        $this->collectionProcessor->process($searchCriteria, $collection);
         $searchResult = $this->searchResultsFactory->create();
         $searchResult->setSearchCriteria($searchCriteria);
         $searchResult->setItems($collection->getItems());

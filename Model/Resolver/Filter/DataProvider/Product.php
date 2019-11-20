@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider;
 
+use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Catalog\Model\ResourceModel\Product\Collection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
@@ -29,17 +30,25 @@ class Product
     private $searchResultsFactory;
 
     /**
+     * @var CollectionProcessorInterface
+     */
+    private $collectionProcessor;
+
+    /**
      * Product constructor.
      *
      * @param CollectionFactory $collectionFactory
+     * @param CollectionProcessorInterface $collectionProcessor
      * @param ProductSearchResultsInterfaceFactory $searchResultsFactory
      */
     public function __construct(
         CollectionFactory $collectionFactory,
+        CollectionProcessorInterface $collectionProcessor,
         ProductSearchResultsInterfaceFactory $searchResultsFactory
     ) {
         $this->collectionFactory    = $collectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
+        $this->collectionProcessor = $collectionProcessor;
     }
 
     /**
@@ -59,6 +68,7 @@ class Product
         if (!$collection) {
             $collection = $this->collectionFactory->create();
         }
+        $this->collectionProcessor->process($searchCriteria, $collection);
         $searchResult = $this->searchResultsFactory->create();
         $searchResult->setSearchCriteria($searchCriteria);
         $searchResult->setItems($collection->getItems());
