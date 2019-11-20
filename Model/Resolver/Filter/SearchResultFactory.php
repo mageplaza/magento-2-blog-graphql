@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Mageplaza\BlogGraphQl\Model\Resolver\Post;
+namespace Mageplaza\BlogGraphQl\Model\Resolver\Filter;
 
 use Magento\Framework\ObjectManagerInterface;
 
@@ -31,14 +31,14 @@ class SearchResultFactory
      * Instantiate SearchResult
      *
      * @param int $totalCount
-     * @param array $productsSearchResult
+     * @param array $itemsSearchResult
      * @return SearchResult
      */
-    public function create(int $totalCount, array $productsSearchResult) : SearchResult
+    public function create(int $totalCount, array $itemsSearchResult) : SearchResult
     {
         return $this->objectManager->create(
             SearchResult::class,
-            ['totalCount' => $totalCount, 'productsSearchResult' => $productsSearchResult]
+            ['totalCount' => $totalCount, 'itemsSearchResult' => $itemsSearchResult]
         );
     }
 }

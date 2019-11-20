@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Mageplaza\BlogGraphQl\Model\Resolver;
 
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Mageplaza\Blog\Helper\Data;
@@ -14,10 +13,10 @@ use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\Builder as 
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Mageplaza\Blog\Model\ResourceModel\Post\Collection;
-use Magento\BlogGraphQl\Model\Resolver\Post\Query\Filter;
+use Mageplaza\BlogGraphQl\Model\Resolver\Filter\Query\Filter;
 
 /**
- * Class GetPosts
+ * Class Posts
  * @package Mageplaza\BlogGraphQl\Model\Resolver
  */
 class Posts implements ResolverInterface
@@ -33,31 +32,24 @@ class Posts implements ResolverInterface
     private $searchCriteriaBuilder;
 
     /**
-     * @var CollectionProcessorInterface
-     */
-    protected $collectionProcessor;
-
-    /**
      * @var Filter
      */
     protected $filterQuery;
 
     /**
-     * PickUpStoresList constructor.
+     * Posts constructor.
      *
      * @param Data $helperData
-     * @param CollectionProcessorInterface $collectionProcessor
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param Filter $filterQuery
      */
     public function __construct(
         Data $helperData,
-        CollectionProcessorInterface $collectionProcessor,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         Filter $filterQuery
     ) {
         $this->_helperData           = $helperData;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->collectionProcessor   = $collectionProcessor;
         $this->filterQuery = $filterQuery;
     }
 
@@ -70,39 +62,37 @@ class Posts implements ResolverInterface
         $searchCriteria = $this->searchCriteriaBuilder->build('posts', $args);
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
-        $searchResult = $this->filterQuery->getResult($searchCriteria, $info);
 
-//        switch ($args['action']) {
-//            case 'get_post_list':
-//                $collection = $this->getPostList();
-//                break;
-//            case 'get_post_by_authorName':
-//                $collection = $this->getPostViewByAuthorName($args);
-//                break;
-//            case 'get_post_by_tagName':
-//                $collection = $this->getPostViewByTagName($args);
-//                break;
-//            case 'get_post_by_topic':
-//                $collection = $this->getPostViewByTopic($args);
-//                break;
-//            case 'get_related_post':
-//                $collection = $this->getRelatedPost($args);
-//                break;
-//            case 'get_post_by_categoryId':
-//                $collection = $this->getPostByCategoryId($args);
-//                break;
-//            case 'get_post_by_categoryKey':
-//                $collection = $this->getPostByCategoryKey($args);
-//                break;
-//            default:
-//                throw new GraphQlInputException(__('No find your function'));
-//        }
-        $this->collectionProcessor->process($searchCriteria, $collection);
-        $collection->setSearchCriteria($searchCriteria);
+        switch ($args['action']) {
+            case 'get_post_list':
+                $collection = null;
+                break;
+            case 'get_post_by_authorName':
+                $collection = $this->getPostViewByAuthorName($args);
+                break;
+            case 'get_post_by_tagName':
+                $collection = $this->getPostViewByTagName($args);
+                break;
+            case 'get_post_by_topic':
+                $collection = $this->getPostViewByTopic($args);
+                break;
+            case 'get_related_post':
+                $collection = $this->getRelatedPost($args);
+                break;
+            case 'get_post_by_categoryId':
+                $collection = $this->getPostByCategoryId($args);
+                break;
+            case 'get_post_by_categoryKey':
+                $collection = $this->getPostByCategoryKey($args);
+                break;
+            default:
+                throw new GraphQlInputException(__('No find your function'));
+        }
+        $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'post', $collection);
 
         return [
-            'total_count' => $collection->getTotalCount(),
-            'items'       => $collection->getItems()
+            'total_count' => $searchResult->getTotalCount(),
+            'items'       => $searchResult->getItemsSearchResult()
         ];
     }
 

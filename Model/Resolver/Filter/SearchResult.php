@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace Mageplaza\BlogGraphQl\Model\Resolver\Post;
+namespace Mageplaza\BlogGraphQl\Model\Resolver\Filter;
 
 use Magento\Framework\Api\SearchResultsInterface;
 
@@ -22,16 +22,16 @@ class SearchResult
     /**
      * @var array
      */
-    private $postsSearchResult;
+    private $itemsSearchResult;
 
     /**
      * @param int $totalCount
-     * @param array $postsSearchResult
+     * @param array $itemsSearchResult
      */
-    public function __construct(int $totalCount, array $postsSearchResult)
+    public function __construct(int $totalCount, array $itemsSearchResult)
     {
         $this->totalCount = $totalCount;
-        $this->postsSearchResult = $postsSearchResult;
+        $this->itemsSearchResult = $itemsSearchResult;
     }
 
     /**
@@ -49,8 +49,8 @@ class SearchResult
      *
      * @return array
      */
-    public function getProductsSearchResult() : array
+    public function getItemsSearchResult() : array
     {
-        return $this->postsSearchResult;
+        return $this->itemsSearchResult;
     }
 }

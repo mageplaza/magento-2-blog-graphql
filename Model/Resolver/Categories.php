@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Mageplaza\BlogGraphQl\Model\Resolver;
 
-use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Mageplaza\Blog\Helper\Data;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\Builder as SearchCriteriaBuilder;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Mageplaza\BlogGraphQl\Model\Resolver\Filter\Query\Filter;
 
 /**
  * Class Categories
@@ -29,25 +29,25 @@ class Categories implements ResolverInterface
     private $searchCriteriaBuilder;
 
     /**
-     * @var CollectionProcessorInterface
+     * @var Filter
      */
-    protected $collectionProcessor;
+    protected $filterQuery;
 
     /**
-     * PickUpStoresList constructor.
+     * Categories constructor.
      *
      * @param Data $helperData
-     * @param CollectionProcessorInterface $collectionProcessor
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param Filter $filterQuery
      */
     public function __construct(
         Data $helperData,
-        CollectionProcessorInterface $collectionProcessor,
-        SearchCriteriaBuilder $searchCriteriaBuilder
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        Filter $filterQuery
     ) {
         $this->_helperData           = $helperData;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->collectionProcessor   = $collectionProcessor;
+        $this->filterQuery           = $filterQuery;
     }
 
     /**
@@ -62,7 +62,7 @@ class Categories implements ResolverInterface
 
         switch ($args['action']) {
             case 'get_category_list':
-                $collection = $this->_helperData->getFactoryByType('category')->create()->getCollection();
+                $collection = null;
                 break;
             case 'get_category_by_postId':
                 $collection = $this->getCategoryByPostId($args);
@@ -70,12 +70,11 @@ class Categories implements ResolverInterface
             default:
                 throw new GraphQlInputException(__('No find your function'));
         }
-        $this->collectionProcessor->process($searchCriteria, $collection);
-        $collection->setSearchCriteria($searchCriteria);
+        $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'category', $collection);
 
         return [
-            'total_count' => $collection->getTotalCount(),
-            'items'       => $collection->getItems()
+            'total_count' => $searchResult->getTotalCount(),
+            'items'       => $searchResult->getItemsSearchResult()
         ];
     }
 

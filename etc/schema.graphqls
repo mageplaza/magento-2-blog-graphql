@@ -177,7 +177,11 @@ type Post {
     publish_date: String @doc(description: ""),
     import_source: String @doc(description: ""),
     layout: String @doc(description: ""),
-    categories: [Category] @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Category")
+    categories: CategoriesOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Category"),
+    tags: TagsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Tag"),
+    topics: TopicsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Topic")
+    products: ProductsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Product")
+    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Post")
 }
 
 type Tag {
@@ -193,7 +197,8 @@ type Tag {
     meta_robots: String @doc(description: ""),
     created_at: String @doc(description: ""),
     updated_at: String @doc(description: ""),
-    import_source: String @doc(description: "")
+    import_source: String @doc(description: ""),
+    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post")
 }
 
 type Topic {
@@ -209,7 +214,8 @@ type Topic {
     meta_robots: String @doc(description: ""),
     created_at: String @doc(description: ""),
     updated_at: String @doc(description: ""),
-    import_source: String @doc(description: "")
+    import_source: String @doc(description: ""),
+    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post")
 }
 
 type Comment {
@@ -245,7 +251,8 @@ type Category {
     children_count: Int @doc(description: ""),
     created_at: String @doc(description: ""),
     updated_at: String @doc(description: ""),
-    import_source: String @doc(description: "")
+    import_source: String @doc(description: ""),
+    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post")
 }
 
 type Product {

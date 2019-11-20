@@ -5,19 +5,18 @@
  */
 declare(strict_types=1);
 
-namespace  Magento\BlogGraphQl\Model\Resolver\Post\DataProvider;
+namespace Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider;
 
-use Magento\Catalog\Model\Product\Visibility;
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Mageplaza\Blog\Model\ResourceModel\Post\CollectionFactory;
+use Mageplaza\Blog\Model\ResourceModel\Category\Collection;
+use Mageplaza\Blog\Model\ResourceModel\Category\CollectionFactory;
 use Magento\Catalog\Api\Data\ProductSearchResultsInterfaceFactory;
 use Magento\Framework\Api\SearchResultsInterface;
-use Magento\CatalogGraphQl\Model\Resolver\Products\DataProvider\Product\CollectionProcessorInterface;
 
 /**
  * Product field data provider, used for GraphQL resolver processing.
  */
-class Post
+class Category
 {
     /**
      * @var CollectionFactory
@@ -30,26 +29,16 @@ class Post
     private $searchResultsFactory;
 
     /**
-     * @var CollectionProcessorInterface
-     */
-    private $collectionProcessor;
-
-    /**
-     * @var Visibility
-     */
-    private $visibility;
-
-    /**
+     * Category constructor.
+     *
      * @param CollectionFactory $collectionFactory
      * @param ProductSearchResultsInterfaceFactory $searchResultsFactory
-     * @param Visibility $visibility
-     * @param CollectionProcessorInterface $collectionProcessor
      */
     public function __construct(
         CollectionFactory $collectionFactory,
         ProductSearchResultsInterfaceFactory $searchResultsFactory
     ) {
-        $this->collectionFactory = $collectionFactory;
+        $this->collectionFactory    = $collectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
     }
 
@@ -58,17 +47,23 @@ class Post
      *
      * @param SearchCriteriaInterface $searchCriteria
      *
+     * @param $collection
+     *
      * @return SearchResultsInterface
      */
     public function getList(
-        SearchCriteriaInterface $searchCriteria
+        SearchCriteriaInterface $searchCriteria,
+        $collection
     ): SearchResultsInterface {
-        /** @var \Mageplaza\Blog\Model\ResourceModel\Post\Collection $collection */
-        $collection = $this->collectionFactory->create();
+        /** @var Collection $collection */
+        if (!$collection) {
+            $collection = $this->collectionFactory->create();
+        }
         $searchResult = $this->searchResultsFactory->create();
         $searchResult->setSearchCriteria($searchCriteria);
         $searchResult->setItems($collection->getItems());
         $searchResult->setTotalCount($collection->getSize());
+
         return $searchResult;
     }
 }
