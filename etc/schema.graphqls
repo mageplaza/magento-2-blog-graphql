@@ -7,7 +7,7 @@ type Query {
         authorId: Int @doc(description: "")
         topicId: Int @doc(description: "")
         categoryId: Int @doc(description: "")
-        categoryKey: Int @doc(description: "")
+        categoryKey: String @doc(description: "")
         postId: Int @doc(description: "")
         pageSize: Int = 10 @doc(description: "How many items should show on the page")
         currentPage: Int = 1 @doc(description: "Allows to using paging it start with 1")
