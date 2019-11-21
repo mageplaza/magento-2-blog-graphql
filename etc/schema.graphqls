@@ -1,5 +1,5 @@
 type Query {
-    Posts(
+    mpBlogPosts(
         action: String! @doc(description: "Action in query.")
         filter: PostsFilterInput @doc(description: "Identifies which product attributes to search for and return.")
         authorName: String @doc(description: "Author's name use in the filter. Apply when action is get_post_by_authorName.")
@@ -10,148 +10,148 @@ type Query {
         postId: Int @doc(description: "Post's Id use in the filter. Apply when action is get_related_post.")
         pageSize: Int = 10 @doc(description: "How many items should show on the page.")
         currentPage: Int = 1 @doc(description: "Allows to using paging it start with 1.")
-    ):PostsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Posts") @doc(description: "The Posts query searches for post that match the criteria specified in the filter.")
-    Tags(
+    ):PostsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Posts") @doc(description: "The mpBlogPosts query searches for post that match the criteria specified in the filter.")
+    mpBlogTags(
         filter: TagsFilterInput @doc(description: "Identifies which product attributes to search for and return.")
         pageSize: Int = 10 @doc(description: "How many items should show on the page.")
         currentPage: Int = 1 @doc(description: "Allows to using paging it start with 1.")
-    ):TagsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Tags") @doc(description: "The Tags query searches for tag that match the criteria specified in the filter.")
-    Topics(
+    ):TagsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Tags") @doc(description: "The mpBlogTags query searches for tag that match the criteria specified in the filter.")
+    mpBlogTopics(
         filter: TopicsFilterInput @doc(description: "Identifies which product attributes to search for and return.")
         pageSize: Int = 10 @doc(description: "How many items should show on the page.")
         currentPage: Int = 1 @doc(description: "Allows to using paging it start with 1.")
-    ):TopicsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Topics") @doc(description: "The Topics query searches for topic that match the criteria specified in the filter.")
-    Categories(
+    ):TopicsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Topics") @doc(description: "The mpBlogTopics query searches for topic that match the criteria specified in the filter.")
+    mpBlogCategories(
         action: String! @doc(description: "Action in query.")
         filter: CategoriesFilterInput @doc(description: "Identifies which product attributes to search for and return.")
         postId: Int @doc(description: "Post's Id use in the filter. Apply when action is get_category_by_postId.")
         pageSize: Int = 10 @doc(description: "How many items should show on the page.")
         currentPage: Int = 1 @doc(description: "Allows to using paging it start with 1.")
-    ):CategoriesOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Categories") @doc(description: "The Categories query searches for Category that match the criteria specified in the filter.")
-    Comments(
+    ):CategoriesOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Categories") @doc(description: "The mpBlogCategories query searches for Category that match the criteria specified in the filter.")
+    mpBlogComments(
         filter: CommentsFilterInput @doc(description: "Identifies which product attributes to search for and return.")
         pageSize: Int = 10 @doc(description: "How many items should show on the page.")
         currentPage: Int = 1 @doc(description: "Allows to using paging it start with 1.")
-    ):CommentsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Comments") @doc(description: "The Comments query searches for Category that match the criteria specified in the filter.")
-    Likes(
+    ):CommentsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Comments") @doc(description: "The mpBlogComments query searches for Category that match the criteria specified in the filter.")
+    mpBlogPostLikes(
         postId: Int @doc(description: "")
-    ):LikesOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Likes") @doc(description: "Comment")
-    PostProducts(
+    ):LikesOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Likes") @doc(description: "Returns the total number of likes for the post")
+    mpBlogProducts(
         filter: ProductsFilterInput @doc(description: "Identifies which product attributes to search for and return.")
         postId: Int @doc(description: "Post's Id use in the filter.")
         pageSize: Int = 10 @doc(description: "How many items should show on the page.")
         currentPage: Int = 1 @doc(description: "Allows to ussing paging it start with 1.")
-    ):ProductsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Products") @doc(description: "Comment")
+    ):ProductsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Products") @doc(description: "The mpBlogProducts query searches for Category that match the criteria specified in the filter.")
 }
 
 input PostsFilterInput {
-    name: FilterTypeInput  @doc(description: ""),
-    post_id: FilterTypeInput  @doc(description: ""),
-    store_ids: FilterTypeInput  @doc(description: ""),
-    enabled: FilterTypeInput  @doc(description: ""),
-    url_key: FilterTypeInput  @doc(description: ""),
-    allow_comment: FilterTypeInput  @doc(description: ""),
-    created_at: FilterTypeInput  @doc(description: ""),
-    updated_at: FilterTypeInput  @doc(description: ""),
-    author_id: FilterTypeInput  @doc(description: ""),
-    import_source: FilterTypeInput  @doc(description: ""),
-    publish_date: FilterTypeInput  @doc(description: "")
+    name: FilterTypeInput  @doc(description: "The post name. Customers use this name to identify the post."),
+    post_id: FilterTypeInput  @doc(description: "The post id. Customers use this name to identify the post."),
+    store_ids: FilterTypeInput  @doc(description: "The store id"),
+    enabled: FilterTypeInput  @doc(description: "Enabled"),
+    url_key: FilterTypeInput  @doc(description: "The post url_key"),
+    allow_comment: FilterTypeInput  @doc(description: "Indicates whether the post allow comment"),
+    created_at: FilterTypeInput  @doc(description: "Timestamp indicating when the post was created"),
+    updated_at: FilterTypeInput  @doc(description: "Timestamp indicating when the post was updated"),
+    author_id: FilterTypeInput  @doc(description: "Author Id the post belongs to."),
+    import_source: FilterTypeInput  @doc(description: "Import Source"),
+    publish_date: FilterTypeInput  @doc(description: "Timestamp indicating when the post was publish")
 }
 
 input TagsFilterInput {
-    name: FilterTypeInput  @doc(description: ""),
-    tag_id: FilterTypeInput  @doc(description: ""),
-    store_ids: FilterTypeInput  @doc(description: ""),
-    enabled: FilterTypeInput  @doc(description: ""),
-    url_key: FilterTypeInput  @doc(description: ""),
-    created_at: FilterTypeInput  @doc(description: ""),
-    updated_at: FilterTypeInput  @doc(description: ""),
-    import_source: FilterTypeInput  @doc(description: "")
+    name: FilterTypeInput  @doc(description: "The tag name. Customers use this name to identify the tag."),
+    tag_id: FilterTypeInput  @doc(description: "The tag id. Customers use this name to identify the tag."),
+    store_ids: FilterTypeInput  @doc(description: "The store id"),
+    enabled: FilterTypeInput  @doc(description: "Enabled"),
+    url_key: FilterTypeInput  @doc(description: "The tag url_key"),
+    created_at: FilterTypeInput  @doc(description: "Timestamp indicating when the tag was created"),
+    updated_at: FilterTypeInput  @doc(description: "Timestamp indicating when the tag was updated"),
+    import_source: FilterTypeInput  @doc(description: "Import Source")
 }
 
 input TopicsFilterInput {
-    name: FilterTypeInput  @doc(description: ""),
-    topic_id: FilterTypeInput  @doc(description: ""),
-    store_ids: FilterTypeInput  @doc(description: ""),
-    enabled: FilterTypeInput  @doc(description: ""),
-    url_key: FilterTypeInput  @doc(description: ""),
-    created_at: FilterTypeInput  @doc(description: ""),
-    updated_at: FilterTypeInput  @doc(description: ""),
-    import_source: FilterTypeInput  @doc(description: "")
+    name: FilterTypeInput  @doc(description: "The topic name. Customers use this name to identify the topic."),
+    topic_id: FilterTypeInput  @doc(description: "The topic id. Customers use this name to identify the topic."),
+    store_ids: FilterTypeInput  @doc(description: "The store id"),
+    enabled: FilterTypeInput  @doc(description: "Enabled"),
+    url_key: FilterTypeInput  @doc(description: "The topic url_key"),
+    created_at: FilterTypeInput  @doc(description: "Timestamp indicating when the topic was created"),
+    updated_at: FilterTypeInput  @doc(description: "Timestamp indicating when the topic was updated"),
+    import_source: FilterTypeInput  @doc(description: "Import Source")
 }
 
 input CategoriesFilterInput {
-    name: FilterTypeInput  @doc(description: ""),
-    category_id: FilterTypeInput  @doc(description: ""),
-    parent_id: FilterTypeInput  @doc(description: ""),
-    store_ids: FilterTypeInput  @doc(description: ""),
-    position: FilterTypeInput  @doc(description: ""),
-    level: FilterTypeInput  @doc(description: ""),
-    enabled: FilterTypeInput  @doc(description: ""),
-    url_key: FilterTypeInput  @doc(description: ""),
-    created_at: FilterTypeInput  @doc(description: ""),
-    updated_at: FilterTypeInput  @doc(description: ""),
-    import_source: FilterTypeInput  @doc(description: "")
+    name: FilterTypeInput  @doc(description: "The category name. Customers use this name to identify the category."),
+    category_id: FilterTypeInput  @doc(description: "The category id. Customers use this name to identify the category."),
+    parent_id: FilterTypeInput  @doc(description: "The parent category id. Customers use this name to identify the category."),
+    store_ids: FilterTypeInput  @doc(description: "The Store Id"),
+    position: FilterTypeInput  @doc(description: "The Category Position"),
+    level: FilterTypeInput  @doc(description: "The Category Level"),
+    enabled: FilterTypeInput  @doc(description: "Enabled"),
+    url_key: FilterTypeInput  @doc(description: "The Category url_key"),
+    created_at: FilterTypeInput  @doc(description: "Timestamp indicating when the category was created"),
+    updated_at: FilterTypeInput  @doc(description: "Timestamp indicating when the category was updated"),
+    import_source: FilterTypeInput  @doc(description: "Import Source")
 }
 
 input CommentsFilterInput {
-    comment_id: FilterTypeInput  @doc(description: ""),
-    post_id: FilterTypeInput  @doc(description: ""),
-    entity_id: FilterTypeInput  @doc(description: ""),
-    has_reply: FilterTypeInput  @doc(description: ""),
-    is_reply: FilterTypeInput  @doc(description: ""),
-    reply_id: FilterTypeInput  @doc(description: ""),
-    status: FilterTypeInput  @doc(description: ""),
-    store_ids: FilterTypeInput  @doc(description: ""),
-    user_name: FilterTypeInput  @doc(description: ""),
-    user_email: FilterTypeInput  @doc(description: ""),
-    updated_at: FilterTypeInput  @doc(description: ""),
-    import_source: FilterTypeInput  @doc(description: "")
+    comment_id: FilterTypeInput  @doc(description: "The comment id. Customers use this name to identify the comment."),
+    post_id: FilterTypeInput  @doc(description: "Post Id the comment belongs to."),
+    entity_id: FilterTypeInput  @doc(description: "Customer Id the comment belongs to"),
+    has_reply: FilterTypeInput  @doc(description: "Indicates whether the comment has reply"),
+    is_reply: FilterTypeInput  @doc(description: "Indicates whether the comment is reply"),
+    reply_id: FilterTypeInput  @doc(description: "Reply Id"),
+    status: FilterTypeInput  @doc(description: "Comment Status"),
+    store_ids: FilterTypeInput  @doc(description: "Store Id"),
+    user_name: FilterTypeInput  @doc(description: "User Name"),
+    user_email: FilterTypeInput  @doc(description: "User Email"),
+    updated_at: FilterTypeInput  @doc(description: "Timestamp indicating when the comment was updated"),
+    import_source: FilterTypeInput  @doc(description: "Import Source")
 }
 
 input ProductsFilterInput {
-    type_id: FilterTypeInput  @doc(description: ""),
-    attribute_set_id: FilterTypeInput  @doc(description: ""),
-    entity_id: FilterTypeInput  @doc(description: ""),
-    sku: FilterTypeInput  @doc(description: ""),
-    has_options: FilterTypeInput  @doc(description: ""),
-    required_options: FilterTypeInput  @doc(description: ""),
-    updated_at: FilterTypeInput  @doc(description: ""),
-    created_at: FilterTypeInput  @doc(description: "")
+    type_id: FilterTypeInput  @doc(description: "Product Type the product belongs to"),
+    attribute_set_id: FilterTypeInput  @doc(description: "Product Attribute Set Id the product belongs to"),
+    entity_id: FilterTypeInput  @doc(description: "Product Id"),
+    sku: FilterTypeInput  @doc(description: "A number or code assigned to a product to identify the product, options, price, and manufacturer"),
+    has_options: FilterTypeInput  @doc(description: "Indicates whether additional attributes have been created for the product"),
+    required_options: FilterTypeInput  @doc(description: "Indicates whether the product has required options"),
+    updated_at: FilterTypeInput  @doc(description: "Timestamp indicating when the product was updated"),
+    created_at: FilterTypeInput  @doc(description: "Timestamp indicating when the product was created")
 }
 
 type PostsOutput {
-    total_count: Int @doc(description: ""),
-    items: [Post] @doc(description: "")
+    total_count: Int @doc(description: "The number of posts returned"),
+    items: [Post] @doc(description: "An array of post that match the specified search criteria")
 }
 
 type LikesOutput {
-    total: Int
+    total: Int @doc(description: "The total like")
 }
 
 type ProductsOutput {
-    total_count: Int @doc(description: ""),
-    items: [Product] @doc(description: "")
+    total_count: Int @doc(description: "The number of products returned"),
+    items: [Product] @doc(description: "An array of products that match the specified search criteria")
 }
 
 type TagsOutput {
-    total_count: Int @doc(description: ""),
-    items: [Tag] @doc(description: "")
+    total_count: Int @doc(description: "The number of tags returned"),
+    items: [Tag] @doc(description: "An array of tags that match the specified search criteria")
 }
 
 type TopicsOutput {
-    total_count: Int @doc(description: ""),
-    items: [Topic] @doc(description: "")
+    total_count: Int @doc(description: "The number of topics returned"),
+    items: [Topic] @doc(description: "An array of topics that match the specified search criteria")
 }
 
 type CategoriesOutput {
-    total_count: Int @doc(description: ""),
-    items: [Category] @doc(description: "")
+    total_count: Int @doc(description: "The number of categories returned"),
+    items: [Category] @doc(description: "An array of categories that match the specified search criteria")
 }
 
 type CommentsOutput {
-    total_count: Int @doc(description: ""),
-    items: [Comment] @doc(description: "")
+    total_count: Int @doc(description: "The number of comments returned"),
+    items: [Comment] @doc(description: "An array of comments that match the specified search criteria")
 }
 
 type Post {
@@ -175,11 +175,11 @@ type Post {
     publish_date: String @doc(description: ""),
     import_source: String @doc(description: ""),
     layout: String @doc(description: ""),
-    categories: CategoriesOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Category"),
-    tags: TagsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Tag"),
-    topics: TopicsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Topic")
-    products: ProductsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Product")
-    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Post")
+    categories: CategoriesOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Category") @doc(description: "The categories assigned to a post"),
+    tags: TagsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Tag") @doc(description: "The tags assigned to a post"),
+    topics: TopicsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Topic") @doc(description: "The topics assigned to a post"),
+    products: ProductsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Product") @doc(description: "The products assigned to a post"),
+    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Post")  @doc(description: "The related post assigned to a post")
 }
 
 type Tag {
@@ -196,7 +196,7 @@ type Tag {
     created_at: String @doc(description: ""),
     updated_at: String @doc(description: ""),
     import_source: String @doc(description: ""),
-    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post")
+    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post") @doc(description: "The posts assigned to a tag")
 }
 
 type Topic {
@@ -213,7 +213,7 @@ type Topic {
     created_at: String @doc(description: ""),
     updated_at: String @doc(description: ""),
     import_source: String @doc(description: ""),
-    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post")
+    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post") @doc(description: "The post assigned to a topic")
 }
 
 type Comment {
@@ -250,7 +250,7 @@ type Category {
     created_at: String @doc(description: ""),
     updated_at: String @doc(description: ""),
     import_source: String @doc(description: ""),
-    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post")
+    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post") @doc(description: "The post assigned to a category")
 }
 
 type Product {
