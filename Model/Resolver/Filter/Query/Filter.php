@@ -14,6 +14,7 @@ use Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider\Post;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider\Category;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider\Tag;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider\Topic;
+use Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider\Product;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\SearchResult;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\SearchResultFactory;
 
@@ -41,10 +42,16 @@ class Filter
      * @var Tag
      */
     private $tagDataProvider;
+
     /**
      * @var Topic
      */
     private $topicDataProvider;
+
+    /**
+     * @var Product
+     */
+    private $productDataProvider;
 
     /**
      * Filter constructor.
@@ -54,19 +61,22 @@ class Filter
      * @param Category $categoryDataProvider
      * @param Tag $tagDataProvider
      * @param Topic $topicDataProvider
+     * @param Product $productDataProvider
      */
     public function __construct(
         SearchResultFactory $searchResultFactory,
         Post $postDataProvider,
         Category $categoryDataProvider,
         Tag $tagDataProvider,
-        Topic $topicDataProvider
+        Topic $topicDataProvider,
+        Product $productDataProvider
     ) {
         $this->searchResultFactory  = $searchResultFactory;
         $this->postDataProvider     = $postDataProvider;
         $this->categoryDataProvider = $categoryDataProvider;
         $this->tagDataProvider      = $tagDataProvider;
         $this->topicDataProvider    = $topicDataProvider;
+        $this->productDataProvider    = $productDataProvider;
     }
 
     /**
@@ -95,7 +105,7 @@ class Filter
                 $list = $this->topicDataProvider->getList($searchCriteria, $collection);
                 break;
             case 'product':
-                $list = $this->topicDataProvider->getList($searchCriteria, $collection);
+                $list = $this->productDataProvider->getList($searchCriteria, $collection);
                 break;
             case 'post':
             default:
