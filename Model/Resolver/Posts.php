@@ -137,9 +137,7 @@ class Posts implements ResolverInterface
      */
     protected function getPostList()
     {
-        $collection = $this->_helperData->getFactoryByType()->create()->getCollection();
-
-        return $collection;
+        return $this->_helperData->getFactoryByType()->create()->getCollection();
     }
 
     /**
@@ -173,9 +171,8 @@ class Posts implements ResolverInterface
             throw new GraphQlInputException(__('categoryId value is not null'));
         }
         $category   = $this->_helperData->getFactoryByType('category')->create()->load($args['categoryId']);
-        $collection = $category->getSelectedPostsCollection();
 
-        return $collection;
+        return $category->getSelectedPostsCollection();
     }
 
     /**
@@ -191,9 +188,8 @@ class Posts implements ResolverInterface
         }
         $category   = $this->_helperData->getFactoryByType('category')->create()->getCollection()
             ->addFieldToFilter('url_key', $args['categoryKey'])->getFirstItem();
-        $collection = $category->getSelectedPostsCollection();
 
-        return $collection;
+        return $category->getSelectedPostsCollection();
     }
 
     /**
@@ -209,9 +205,8 @@ class Posts implements ResolverInterface
         }
         $tag        = $this->_helperData->getFactoryByType('tag')->create()->getCollection()
             ->addFieldToFilter('name', $args['tagName'])->getFirstItem();
-        $collection = $tag->getSelectedPostsCollection();
 
-        return $collection;
+        return $tag->getSelectedPostsCollection();
     }
 
     /**
@@ -226,9 +221,8 @@ class Posts implements ResolverInterface
             throw new GraphQlInputException(__('topicId value is not null'));
         }
         $topic      = $this->_helperData->getFactoryByType('topic')->create()->load($args['topicId']);
-        $collection = $topic->getSelectedPostsCollection();
 
-        return $collection;
+        return $topic->getSelectedPostsCollection();
     }
 
     /**
@@ -244,9 +238,8 @@ class Posts implements ResolverInterface
             throw new GraphQlInputException(__('postId value is not null'));
         }
         $post       = $this->_helperData->getFactoryByType()->create()->load($args['postId']);
-        $collection = $post->getRelatedPostsCollection();
 
-        return $collection;
+        return $post->getRelatedPostsCollection();
     }
 
     /**
@@ -254,7 +247,7 @@ class Posts implements ResolverInterface
      *
      * @throws GraphQlInputException
      */
-    private function vaildateArgs(array $args): void
+    protected function vaildateArgs(array $args)
     {
         if (!isset($args['action'])) {
             throw new GraphQlInputException(__('Action value is not null'));

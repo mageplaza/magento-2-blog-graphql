@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace Mageplaza\BlogGraphQl\Model\Resolver\Filter\Query;
 
-use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Mageplaza\Blog\Model\Post as PostModel;
 use Mageplaza\Blog\Model\Category as CategoryModel;

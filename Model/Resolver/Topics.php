@@ -101,7 +101,7 @@ class Topics implements ResolverInterface
      *
      * @throws GraphQlInputException
      */
-    private function vaildateArgs(array $args): void
+    protected function vaildateArgs(array $args)
     {
         if (isset($args['currentPage']) && $args['currentPage'] < 1) {
             throw new GraphQlInputException(__('currentPage value must be greater than 0.'));

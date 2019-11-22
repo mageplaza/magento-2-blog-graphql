@@ -110,7 +110,7 @@ class Products implements ResolverInterface
      *
      * @throws GraphQlInputException
      */
-    private function vaildateArgs(array $args): void
+    protected function vaildateArgs(array $args)
     {
         if (!isset($args['postId'])) {
             throw new GraphQlInputException(__('postId value is not Null.'));

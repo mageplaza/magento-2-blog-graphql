@@ -126,9 +126,8 @@ class Categories implements ResolverInterface
             throw new GraphQlInputException(__('postId value is not null'));
         }
         $post       = $this->_helperData->getFactoryByType()->create()->load($args['postId']);
-        $collection = $post->getSelectedCategoriesCollection();
 
-        return $collection;
+        return $post->getSelectedCategoriesCollection();
     }
 
     /**
@@ -136,7 +135,7 @@ class Categories implements ResolverInterface
      *
      * @throws GraphQlInputException
      */
-    private function vaildateArgs(array $args): void
+    protected function vaildateArgs(array $args)
     {
         if (!isset($args['action'])) {
             throw new GraphQlInputException(__('Action value is not null'));

@@ -99,7 +99,7 @@ class Tags implements ResolverInterface
      *
      * @throws GraphQlInputException
      */
-    private function vaildateArgs(array $args): void
+    protected function vaildateArgs(array $args)
     {
 
         if (isset($args['currentPage']) && $args['currentPage'] < 1) {
