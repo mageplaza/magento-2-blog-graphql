@@ -77,7 +77,7 @@ class Posts implements ResolverInterface
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $this->vaildateArgs($args);
+        $this->validateArgs($args);
         $searchCriteria = $this->searchCriteriaBuilder->build('posts', $args);
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
@@ -247,7 +247,7 @@ class Posts implements ResolverInterface
      *
      * @throws GraphQlInputException
      */
-    protected function vaildateArgs(array $args)
+    protected function validateArgs(array $args)
     {
         if (!isset($args['action'])) {
             throw new GraphQlInputException(__('Action value is not null'));

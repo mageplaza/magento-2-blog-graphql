@@ -38,7 +38,7 @@ class Likes implements ResolverInterface
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $this->vaildateArgs($args);
+        $this->validateArgs($args);
         $collection = $this->collectionFactory->create()->addFieldToFilter('post_id', $args['postId']);
 
         return [
@@ -51,7 +51,7 @@ class Likes implements ResolverInterface
      *
      * @throws GraphQlInputException
      */
-    protected function vaildateArgs(array $args)
+    protected function validateArgs(array $args)
     {
         if (!isset($args['postId'])) {
             throw new GraphQlInputException(__('postId value is not null'));

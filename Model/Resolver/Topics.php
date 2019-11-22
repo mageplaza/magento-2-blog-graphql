@@ -66,7 +66,7 @@ class Topics implements ResolverInterface
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $this->vaildateArgs($args);
+        $this->validateArgs($args);
         $searchCriteria = $this->searchCriteriaBuilder->build('topics', $args);
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
@@ -101,7 +101,7 @@ class Topics implements ResolverInterface
      *
      * @throws GraphQlInputException
      */
-    protected function vaildateArgs(array $args)
+    protected function validateArgs(array $args)
     {
         if (isset($args['currentPage']) && $args['currentPage'] < 1) {
             throw new GraphQlInputException(__('currentPage value must be greater than 0.'));
