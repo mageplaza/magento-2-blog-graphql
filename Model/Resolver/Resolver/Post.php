@@ -50,7 +50,7 @@ class Post implements ResolverInterface
         $searchCriteria = $this->searchCriteriaBuilder->build('posts', $args);
         $searchCriteria->setCurrentPage(1);
         $searchCriteria->setPageSize(10);
-        $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'post', $postCollection);
+        $searchResult = $this->filterQuery->getResult($searchCriteria, 'post', $postCollection);
 
         return [
             'total_count' => $searchResult->getTotalCount(),

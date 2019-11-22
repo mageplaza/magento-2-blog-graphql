@@ -52,7 +52,7 @@ class Topics implements ResolverInterface
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
 
-        $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'topic');
+        $searchResult = $this->filterQuery->getResult($searchCriteria, 'topic');
 
         //possible division by 0
         if ($searchCriteria->getPageSize()) {

@@ -50,7 +50,7 @@ class Category implements ResolverInterface
         $searchCriteria     = $this->searchCriteriaBuilder->build('categories', $args);
         $searchCriteria->setCurrentPage(1);
         $searchCriteria->setPageSize(10);
-        $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'category', $categoryCollection);
+        $searchResult = $this->filterQuery->getResult($searchCriteria, 'category', $categoryCollection);
 
         return [
             'total_count' => $searchResult->getTotalCount(),

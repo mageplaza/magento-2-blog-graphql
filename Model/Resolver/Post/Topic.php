@@ -50,7 +50,7 @@ class Topic implements ResolverInterface
         $searchCriteria = $this->searchCriteriaBuilder->build('topics', $args);
         $searchCriteria->setCurrentPage(1);
         $searchCriteria->setPageSize(10);
-        $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'topic', $Collection);
+        $searchResult = $this->filterQuery->getResult($searchCriteria, 'topic', $Collection);
 
         return [
             'total_count' => $searchResult->getTotalCount(),

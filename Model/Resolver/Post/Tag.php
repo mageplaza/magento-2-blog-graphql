@@ -50,7 +50,7 @@ class Tag implements ResolverInterface
         $searchCriteria = $this->searchCriteriaBuilder->build('tags', $args);
         $searchCriteria->setCurrentPage(1);
         $searchCriteria->setPageSize(10);
-        $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'tag', $tagCollection);
+        $searchResult = $this->filterQuery->getResult($searchCriteria, 'tag', $tagCollection);
 
         return [
             'total_count' => $searchResult->getTotalCount(),

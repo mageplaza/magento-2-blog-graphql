@@ -50,7 +50,7 @@ class Product implements ResolverInterface
         $searchCriteria = $this->searchCriteriaBuilder->build('products', $args);
         $searchCriteria->setCurrentPage(1);
         $searchCriteria->setPageSize(10);
-        $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'product', $productCollection);
+        $searchResult = $this->filterQuery->getResult($searchCriteria, 'product', $productCollection);
         return [
             'total_count' => $searchResult->getTotalCount(),
             'items'       => $searchResult->getItemsSearchResult()

@@ -73,7 +73,6 @@ class Filter
      * Filter catalog product data based off given search criteria
      *
      * @param SearchCriteriaInterface $searchCriteria
-     * @param ResolveInfo $info
      * @param string $type
      *
      * @param null $collection
@@ -82,7 +81,6 @@ class Filter
      */
     public function getResult(
         SearchCriteriaInterface $searchCriteria,
-        ResolveInfo $info,
         $type = 'post',
         $collection = null
     ): SearchResult {

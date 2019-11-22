@@ -88,7 +88,7 @@ class Posts implements ResolverInterface
             default:
                 throw new GraphQlInputException(__('No find your function'));
         }
-        $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'post', $collection);
+        $searchResult = $this->filterQuery->getResult($searchCriteria, 'post', $collection);
 
         //possible division by 0
         if ($searchCriteria->getPageSize()) {

@@ -50,7 +50,7 @@ class Tags implements ResolverInterface
         $searchCriteria = $this->searchCriteriaBuilder->build('tags', $args);
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
-        $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'tag');
+        $searchResult = $this->filterQuery->getResult($searchCriteria, 'tag');
 
         //possible division by 0
         if ($searchCriteria->getPageSize()) {

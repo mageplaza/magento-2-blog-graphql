@@ -61,7 +61,7 @@ class Products implements ResolverInterface
         $searchCriteria->setPageSize($args['pageSize']);
         $post       = $this->_helperData->getFactoryByType()->create()->load($args['postId']);
         $collection = $post->getSelectedProductsCollection();
-        $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'product', $collection);
+        $searchResult = $this->filterQuery->getResult($searchCriteria, 'product', $collection);
 
         //possible division by 0
         if ($searchCriteria->getPageSize()) {

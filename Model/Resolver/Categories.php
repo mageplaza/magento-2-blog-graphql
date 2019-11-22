@@ -70,7 +70,7 @@ class Categories implements ResolverInterface
             default:
                 throw new GraphQlInputException(__('No find your function'));
         }
-        $searchResult = $this->filterQuery->getResult($searchCriteria, $info, 'category', $collection);
+        $searchResult = $this->filterQuery->getResult($searchCriteria, 'category', $collection);
 
         //possible division by 0
         if ($searchCriteria->getPageSize()) {

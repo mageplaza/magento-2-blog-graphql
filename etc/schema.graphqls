@@ -40,7 +40,7 @@ type Query {
         filter: ProductsFilterInput @doc(description: "Identifies which product attributes to search for and return.")
         postId: Int @doc(description: "Post's Id use in the filter.")
         pageSize: Int = 10 @doc(description: "How many items should show on the page.")
-        currentPage: Int = 1 @doc(description: "Allows to ussing paging it start with 1.")
+        currentPage: Int = 1 @doc(description: "Allows to using paging it start with 1.")
     ):ProductsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Products") @doc(description: "The mpBlogProducts query searches for Category that match the criteria specified in the filter.")
 }
 
