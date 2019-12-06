@@ -108,7 +108,24 @@ class Posts implements ResolverInterface
                 throw new GraphQlInputException(__('No find your function'));
         }
         $searchResult = $this->filterQuery->getResult($searchCriteria, 'post', $collection);
+        $pageInfo = $this->getPageInfo($searchResult, $searchCriteria, $args);
+        return [
+            'total_count' => $searchResult->getTotalCount(),
+            'items'       => $searchResult->getItemsSearchResult(),
+            'pageInfo'    => $pageInfo
+        ];
+    }
 
+    /**
+     * @param $searchResult
+     * @param $searchCriteria
+     * @param $args
+     *
+     * @return array
+     * @throws GraphQlInputException
+     */
+    public function getPageInfo($searchResult, $searchCriteria, $args)
+    {
         //possible division by 0
         if ($searchCriteria->getPageSize()) {
             $maxPages = ceil($searchResult->getTotalCount() / $searchCriteria->getPageSize());
@@ -125,10 +142,13 @@ class Posts implements ResolverInterface
                 )
             );
         }
-
         return [
-            'total_count' => $searchResult->getTotalCount(),
-            'items'       => $searchResult->getItemsSearchResult()
+            'pageSize'        => $args['pageSize'],
+            'currentPage'     => $args['currentPage'],
+            'hasNextPage'     => $currentPage < $maxPages,
+            'hasPreviousPage' => $currentPage > 1,
+            'startPage'       => 1,
+            'endPage'         => $maxPages,
         ];
     }
 
@@ -170,7 +190,7 @@ class Posts implements ResolverInterface
         if (!isset($args['categoryId'])) {
             throw new GraphQlInputException(__('categoryId value is not null'));
         }
-        $category   = $this->_helperData->getFactoryByType('category')->create()->load($args['categoryId']);
+        $category = $this->_helperData->getFactoryByType('category')->create()->load($args['categoryId']);
 
         return $category->getSelectedPostsCollection();
     }
@@ -186,7 +206,7 @@ class Posts implements ResolverInterface
         if (!isset($args['categoryKey'])) {
             throw new GraphQlInputException(__('categoryKey value is not null'));
         }
-        $category   = $this->_helperData->getFactoryByType('category')->create()->getCollection()
+        $category = $this->_helperData->getFactoryByType('category')->create()->getCollection()
             ->addFieldToFilter('url_key', $args['categoryKey'])->getFirstItem();
 
         return $category->getSelectedPostsCollection();
@@ -203,7 +223,7 @@ class Posts implements ResolverInterface
         if (!isset($args['tagName'])) {
             throw new GraphQlInputException(__('tagName value is not null'));
         }
-        $tag        = $this->_helperData->getFactoryByType('tag')->create()->getCollection()
+        $tag = $this->_helperData->getFactoryByType('tag')->create()->getCollection()
             ->addFieldToFilter('name', $args['tagName'])->getFirstItem();
 
         return $tag->getSelectedPostsCollection();
@@ -220,7 +240,7 @@ class Posts implements ResolverInterface
         if (!isset($args['topicId'])) {
             throw new GraphQlInputException(__('topicId value is not null'));
         }
-        $topic      = $this->_helperData->getFactoryByType('topic')->create()->load($args['topicId']);
+        $topic = $this->_helperData->getFactoryByType('topic')->create()->load($args['topicId']);
 
         return $topic->getSelectedPostsCollection();
     }
@@ -237,7 +257,7 @@ class Posts implements ResolverInterface
         if (!isset($args['postId'])) {
             throw new GraphQlInputException(__('postId value is not null'));
         }
-        $post       = $this->_helperData->getFactoryByType()->create()->load($args['postId']);
+        $post = $this->_helperData->getFactoryByType()->create()->load($args['postId']);
 
         return $post->getRelatedPostsCollection();
     }

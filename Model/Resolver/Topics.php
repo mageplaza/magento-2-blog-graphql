@@ -73,6 +73,25 @@ class Topics implements ResolverInterface
 
         $searchResult = $this->filterQuery->getResult($searchCriteria, 'topic');
 
+        $pageInfo = $this->getPageInfo($searchResult, $searchCriteria, $args);
+
+        return [
+            'total_count' => $searchResult->getTotalCount(),
+            'items'       => $searchResult->getItemsSearchResult(),
+            'pageInfo'    => $pageInfo
+        ];
+    }
+
+    /**
+     * @param $searchResult
+     * @param $searchCriteria
+     * @param $args
+     *
+     * @return array
+     * @throws GraphQlInputException
+     */
+    public function getPageInfo($searchResult, $searchCriteria, $args)
+    {
         //possible division by 0
         if ($searchCriteria->getPageSize()) {
             $maxPages = ceil($searchResult->getTotalCount() / $searchCriteria->getPageSize());
@@ -89,10 +108,13 @@ class Topics implements ResolverInterface
                 )
             );
         }
-
         return [
-            'total_count' => $searchResult->getTotalCount(),
-            'items'       => $searchResult->getItemsSearchResult()
+            'pageSize'        => $args['pageSize'],
+            'currentPage'     => $args['currentPage'],
+            'hasNextPage'     => $currentPage < $maxPages,
+            'hasPreviousPage' => $currentPage > 1,
+            'startPage'       => 1,
+            'endPage'         => $maxPages,
         ];
     }
 

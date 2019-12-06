@@ -83,15 +83,34 @@ class Comments implements ResolverInterface
         $this->collectionProcessor->process($searchCriteria, $collection);
         $collection->setSearchCriteria($searchCriteria);
 
+        $pageInfo = $this->getPageInfo($searchResult, $searchCriteria, $args);
+
+        return [
+            'total_count' => $collection->getTotalCount(),
+            'items'       => $collection->getItems(),
+            'pageInfo'    => $pageInfo
+        ];
+    }
+
+    /**
+     * @param $searchResult
+     * @param $searchCriteria
+     * @param $args
+     *
+     * @return array
+     * @throws GraphQlInputException
+     */
+    public function getPageInfo($searchResult, $searchCriteria, $args)
+    {
         //possible division by 0
         if ($searchCriteria->getPageSize()) {
-            $maxPages = ceil($collection->getTotalCount() / $searchCriteria->getPageSize());
+            $maxPages = ceil($searchResult->getTotalCount() / $searchCriteria->getPageSize());
         } else {
             $maxPages = 0;
         }
 
         $currentPage = $searchCriteria->getCurrentPage();
-        if ($searchCriteria->getCurrentPage() > $maxPages && $collection->getTotalCount() > 0) {
+        if ($searchCriteria->getCurrentPage() > $maxPages && $searchResult->getTotalCount() > 0) {
             throw new GraphQlInputException(
                 __(
                     'currentPage value %1 specified is greater than the %2 page(s) available.',
@@ -99,10 +118,13 @@ class Comments implements ResolverInterface
                 )
             );
         }
-
         return [
-            'total_count' => $collection->getTotalCount(),
-            'items'       => $collection->getItems()
+            'pageSize'        => $args['pageSize'],
+            'currentPage'     => $args['currentPage'],
+            'hasNextPage'     => $currentPage < $maxPages,
+            'hasPreviousPage' => $currentPage > 1,
+            'startPage'       => 1,
+            'endPage'         => $maxPages,
         ];
     }
 

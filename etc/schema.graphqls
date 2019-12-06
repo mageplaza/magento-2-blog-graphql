@@ -141,6 +141,16 @@ input ProductsFilterInput {
 type PostsOutput {
     total_count: Int @doc(description: "The number of posts returned"),
     items: [Post] @doc(description: "An array of post that match the specified search criteria")
+    pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
+}
+
+type PageInfo {
+    pageSize: Int @doc(description: "How many items should show on the page.")
+    currentPage: Int @doc(description: "Allows to using paging it start with 1.")
+    hasNextPage: Boolean @doc(description: "Is next page")
+    hasPreviousPage: Boolean @doc(description: "Is previous page")
+    startPage: Int @doc(description: "Start page")
+    endPage: Int @doc(description: "End page")
 }
 
 type LikesOutput {
@@ -150,26 +160,31 @@ type LikesOutput {
 type ProductsOutput {
     total_count: Int @doc(description: "The number of products returned"),
     items: [Product] @doc(description: "An array of products that match the specified search criteria")
+    pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
 }
 
 type TagsOutput {
     total_count: Int @doc(description: "The number of tags returned"),
     items: [Tag] @doc(description: "An array of tags that match the specified search criteria")
+    pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
 }
 
 type TopicsOutput {
     total_count: Int @doc(description: "The number of topics returned"),
     items: [Topic] @doc(description: "An array of topics that match the specified search criteria")
+    pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
 }
 
 type CategoriesOutput {
     total_count: Int @doc(description: "The number of categories returned"),
     items: [Category] @doc(description: "An array of categories that match the specified search criteria")
+    pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
 }
 
 type CommentsOutput {
     total_count: Int @doc(description: "The number of comments returned"),
     items: [Comment] @doc(description: "An array of comments that match the specified search criteria")
+    pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
 }
 
 type Post {
