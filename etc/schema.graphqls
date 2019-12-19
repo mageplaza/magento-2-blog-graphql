@@ -52,7 +52,7 @@ type Query {
         currentPage: Int = 1 @doc(description: "Allows to using paging it start with 1.")
     ):CommentsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Comments") @doc(description: "The mpBlogComments query searches for Category that match the criteria specified in the filter.")
     mpBlogPostLikes(
-        postId: Int @doc(description: "")
+        postId: Int @doc(description: "Post's Id use in the filter.")
     ):LikesOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Likes") @doc(description: "Returns the total number of likes for the post")
     mpBlogProducts(
         filter: ProductsFilterInput @doc(description: "Identifies which product attributes to search for and return.")

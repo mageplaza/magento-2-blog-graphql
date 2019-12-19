@@ -124,7 +124,7 @@ class Posts implements ResolverInterface
      * @return array
      * @throws GraphQlInputException
      */
-    public function getPageInfo($searchResult, $searchCriteria, $args)
+    public function getPageInfo($searchResult, $searchCriteria, $args) : array
     {
         //possible division by 0
         if ($searchCriteria->getPageSize()) {
@@ -155,7 +155,7 @@ class Posts implements ResolverInterface
     /**
      * @return AbstractCollection
      */
-    protected function getPostList()
+    protected function getPostList() : AbstractCollection
     {
         return $this->_helperData->getFactoryByType()->create()->getCollection();
     }
@@ -166,7 +166,7 @@ class Posts implements ResolverInterface
      * @return AbstractCollection
      * @throws GraphQlInputException
      */
-    protected function getPostViewByAuthorName($args)
+    protected function getPostViewByAuthorName($args) : AbstractCollection
     {
         if (!isset($args['authorName'])) {
             throw new GraphQlInputException(__('AuthorName value is not null'));
@@ -185,7 +185,7 @@ class Posts implements ResolverInterface
      * @return Collection
      * @throws GraphQlInputException
      */
-    public function getPostByCategoryId($args)
+    public function getPostByCategoryId($args) : Collection
     {
         if (!isset($args['categoryId'])) {
             throw new GraphQlInputException(__('categoryId value is not null'));
@@ -198,10 +198,10 @@ class Posts implements ResolverInterface
     /**
      * @param $args
      *
-     * @return mixed
+     * @return Collection
      * @throws GraphQlInputException
      */
-    protected function getPostByCategoryKey($args)
+    protected function getPostByCategoryKey($args) : Collection
     {
         if (!isset($args['categoryKey'])) {
             throw new GraphQlInputException(__('categoryKey value is not null'));
@@ -215,10 +215,10 @@ class Posts implements ResolverInterface
     /**
      * @param $args
      *
-     * @return mixed
+     * @return Collection
      * @throws GraphQlInputException
      */
-    protected function getPostViewByTagName($args)
+    protected function getPostViewByTagName($args) : Collection
     {
         if (!isset($args['tagName'])) {
             throw new GraphQlInputException(__('tagName value is not null'));
@@ -232,10 +232,10 @@ class Posts implements ResolverInterface
     /**
      * @param $args
      *
-     * @return mixed
+     * @return Collection
      * @throws GraphQlInputException
      */
-    protected function getPostViewByTopic($args)
+    protected function getPostViewByTopic($args) : Collection
     {
         if (!isset($args['topicId'])) {
             throw new GraphQlInputException(__('topicId value is not null'));
@@ -248,11 +248,11 @@ class Posts implements ResolverInterface
     /**
      * @param $args
      *
-     * @return Collection|null
+     * @return Collection
      * @throws GraphQlInputException
      * @throws LocalizedException
      */
-    protected function getRelatedPost($args)
+    protected function getRelatedPost($args) : Collection
     {
         if (!isset($args['postId'])) {
             throw new GraphQlInputException(__('postId value is not null'));

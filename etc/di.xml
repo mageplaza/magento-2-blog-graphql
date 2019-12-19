@@ -25,22 +25,22 @@
         <arguments>
             <argument name="attributesInstances" xsi:type="array">
                 <item name="posts" xsi:type="object">
-                    \Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
+                    Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
                 </item>
                 <item name="tags" xsi:type="object">
-                    \Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
+                    Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
                 </item>
                 <item name="topics" xsi:type="object">
-                    \Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
+                    Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
                 </item>
                 <item name="categories" xsi:type="object">
-                    \Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
+                    Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
                 </item>
                 <item name="comments" xsi:type="object">
-                    \Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
+                    Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
                 </item>
                 <item name="products" xsi:type="object">
-                    \Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
+                    Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
                 </item>
             </argument>
         </arguments>

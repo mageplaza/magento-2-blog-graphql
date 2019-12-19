@@ -29,6 +29,7 @@ use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\Builder as SearchCriteriaBuilder;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Mageplaza\Blog\Model\ResourceModel\Category\Collection;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\Query\Filter;
 
 /**
@@ -108,7 +109,7 @@ class Categories implements ResolverInterface
      * @return array
      * @throws GraphQlInputException
      */
-    public function getPageInfo($searchResult, $searchCriteria, $args)
+    public function getPageInfo($searchResult, $searchCriteria, $args) : array
     {
         //possible division by 0
         if ($searchCriteria->getPageSize()) {
@@ -139,10 +140,10 @@ class Categories implements ResolverInterface
     /**
      * @param $args
      *
-     * @return mixed
+     * @return Collection
      * @throws GraphQlInputException
      */
-    protected function getCategoryByPostId($args)
+    protected function getCategoryByPostId($args) : Collection
     {
         if (!isset($args['postId'])) {
             throw new GraphQlInputException(__('postId value is not null'));

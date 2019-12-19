@@ -88,7 +88,7 @@ class Tags implements ResolverInterface
      * @return array
      * @throws GraphQlInputException
      */
-    public function getPageInfo($searchResult, $searchCriteria, $args)
+    public function getPageInfo($searchResult, $searchCriteria, $args) : array
     {
         //possible division by 0
         if ($searchCriteria->getPageSize()) {
