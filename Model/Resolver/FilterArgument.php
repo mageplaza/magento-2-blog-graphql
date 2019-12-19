@@ -51,25 +51,13 @@ class FilterArgument implements FieldEntityAttributesInterface
      */
     public function getEntityAttributes(): array
     {
-        $fields = [];
-        /** @var Field $field */
-        foreach ($this->config->getConfigElement('Post')->getFields() as $field) {
-            $fields[$field->getName()] = '';
-        }
-        foreach ($this->config->getConfigElement('Topic')->getFields() as $field) {
-            $fields[$field->getName()] = '';
-        }
-        foreach ($this->config->getConfigElement('Tag')->getFields() as $field) {
-            $fields[$field->getName()] = '';
-        }
-        foreach ($this->config->getConfigElement('Category')->getFields() as $field) {
-            $fields[$field->getName()] = '';
-        }
-        foreach ($this->config->getConfigElement('Comment')->getFields() as $field) {
-            $fields[$field->getName()] = '';
-        }
-        foreach ($this->config->getConfigElement('Product')->getFields() as $field) {
-            $fields[$field->getName()] = '';
+        $entities = ['Post', 'Topic', 'Category', 'Comment', 'Product'];
+        $fields   = [];
+        foreach ($entities as $entity) {
+            /** @var Field $field */
+            foreach ($this->config->getConfigElement($entity)->getFields() as $field) {
+                $fields[$field->getName()] = '';
+            }
         }
 
         return array_keys($fields);
