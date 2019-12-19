@@ -144,6 +144,11 @@ type PostsOutput {
     pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
 }
 
+type PostsOutputNoPage {
+    total_count: Int @doc(description: "The number of posts returned"),
+    items: [Post] @doc(description: "An array of post that match the specified search criteria")
+}
+
 type PageInfo {
     pageSize: Int @doc(description: "How many items should show on the page.")
     currentPage: Int @doc(description: "Allows to using paging it start with 1.")
@@ -163,10 +168,20 @@ type ProductsOutput {
     pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
 }
 
+type ProductsOutputNoPage {
+    total_count: Int @doc(description: "The number of products returned"),
+    items: [Product] @doc(description: "An array of products that match the specified search criteria")
+}
+
 type TagsOutput {
     total_count: Int @doc(description: "The number of tags returned"),
     items: [Tag] @doc(description: "An array of tags that match the specified search criteria")
     pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
+}
+
+type TagsOutputNoPage {
+    total_count: Int @doc(description: "The number of tags returned"),
+    items: [Tag] @doc(description: "An array of tags that match the specified search criteria")
 }
 
 type TopicsOutput {
@@ -175,7 +190,18 @@ type TopicsOutput {
     pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
 }
 
+type TopicsOutputNoPage {
+    total_count: Int @doc(description: "The number of topics returned"),
+    items: [Topic] @doc(description: "An array of topics that match the specified search criteria")
+}
+
 type CategoriesOutput {
+    total_count: Int @doc(description: "The number of categories returned"),
+    items: [Category] @doc(description: "An array of categories that match the specified search criteria")
+    pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
+}
+
+type CategoriesOutputNoPage {
     total_count: Int @doc(description: "The number of categories returned"),
     items: [Category] @doc(description: "An array of categories that match the specified search criteria")
     pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
@@ -208,11 +234,11 @@ type Post {
     publish_date: String @doc(description: "Timestamp indicating when the post was publish."),
     import_source: String @doc(description: "The import source of the post."),
     layout: String @doc(description: "The layout of the post"),
-    categories: CategoriesOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Category") @doc(description: "The categories assigned to a post"),
-    tags: TagsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Tag") @doc(description: "The tags assigned to a post"),
-    topics: TopicsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Topic") @doc(description: "The topics assigned to a post"),
-    products: ProductsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Product") @doc(description: "The products assigned to a post"),
-    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Post")  @doc(description: "The related post assigned to a post")
+    categories: CategoriesOutputNoPage @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Category") @doc(description: "The categories assigned to a post"),
+    tags: TagsOutputNoPage @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Tag") @doc(description: "The tags assigned to a post"),
+    topics: TopicsOutputNoPage @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Topic") @doc(description: "The topics assigned to a post"),
+    products: ProductsOutputNoPage @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Product") @doc(description: "The products assigned to a post"),
+    posts: PostsOutputNoPage @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Post\\Post")  @doc(description: "The related post assigned to a post")
 }
 
 type Tag {
@@ -229,7 +255,7 @@ type Tag {
     created_at: String @doc(description: "Timestamp indicating when the tag was created."),
     updated_at: String @doc(description: "Timestamp indicating when the tag was updated."),
     import_source: String @doc(description: "The import source of the tag."),
-    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post") @doc(description: "The posts assigned to a tag")
+    posts: PostsOutputNoPage @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post") @doc(description: "The posts assigned to a tag")
 }
 
 type Topic {
@@ -246,7 +272,7 @@ type Topic {
     created_at: String @doc(description: "Timestamp indicating when the topic was created."),
     updated_at: String @doc(description: "Timestamp indicating when the topic was updated."),
     import_source: String @doc(description: "The import source of the topic."),
-    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post") @doc(description: "The post assigned to a topic")
+    posts: PostsOutputNoPage @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post") @doc(description: "The post assigned to a topic")
 }
 
 type Comment {
@@ -283,7 +309,7 @@ type Category {
     created_at: String @doc(description: "Timestamp indicating when the category was created."),
     updated_at: String @doc(description: "Timestamp indicating when the category was updated."),
     import_source: String @doc(description: "The import source of the category."),
-    posts: PostsOutput @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post") @doc(description: "The post assigned to a category")
+    posts: PostsOutputNoPage @resolver(class: "Mageplaza\\BlogGraphQl\\Model\\Resolver\\Resolver\\Post") @doc(description: "The post assigned to a category")
 }
 
 type Product {
