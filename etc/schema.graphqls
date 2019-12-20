@@ -204,7 +204,6 @@ type CategoriesOutput {
 type CategoriesOutputNoPage {
     total_count: Int @doc(description: "The number of categories returned"),
     items: [Category] @doc(description: "An array of categories that match the specified search criteria")
-    pageInfo: PageInfo @doc(description: "An object that includes the page_info and currentPage values specified in the query")
 }
 
 type CommentsOutput {

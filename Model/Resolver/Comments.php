@@ -83,7 +83,7 @@ class Comments implements ResolverInterface
         $this->collectionProcessor->process($searchCriteria, $collection);
         $collection->setSearchCriteria($searchCriteria);
 
-        $pageInfo = $this->getPageInfo($searchResult, $searchCriteria, $args);
+        $pageInfo = $this->getPageInfo($collection, $searchCriteria, $args);
 
         return [
             'total_count' => $collection->getTotalCount(),
