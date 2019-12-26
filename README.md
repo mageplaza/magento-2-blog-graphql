@@ -12,16 +12,13 @@ php bin/magento setup:static-content:deploy
 
 ## How to use
 
-To start working with Blog GraphQL in Magento, you need the following:
+To perform GraphQL queries in Magento, the following requirements are required:
 
+- install the ChromeiQL extension for the Chrome browser
 - Use Magento 2.3.x. Return your site to developer mode
-- Install [chrome extension](https://chrome.google.com/webstore/detail/chromeiql/fkkiamalmpiidkljmicmjfbieiclmeij?hl=en) (currently does not support other browsers)
-- Set **GraphQL endpoint** as `http://<magento2-3-server>/graphql` in url box, click **Set endpoint**. (e.g. http://develop.mageplaza.com/graphql/ce232/graphql)
-- Mageplaza-supported queries are fully written in the **Description** section of `Query.Blogs`
+- Install the ChromeiQL extension for Chrome browser (currently does not support other browsers)
+- Set GraphQL endpoint as http://<magento2-3-server>/graphql in url box, click **Set endpoint**. (e.g. http://develop.mageplaza.com/graphql/ce232/graphql)
+- Perform a query in the left pane, click the **Run** button or **Ctrl + Enter** to see the result in the right cell
+- To view the queries that the **Mageplaza Blog GraphQL** extension supports, you can look in `Docs > Query` in the right corner
 
-![](https://i.imgur.com/rjCYdtu.png)
-
-- In addition, the label information is also displayed when using GraphQL to retrieve the information of the Product according to Magento. Supported queries are fully written at `Product.ProductInterface.mp_label_data.LabelRules`
-
-
-![](https://i.imgur.com/EfVzRxD.png)
+![](https://i.imgur.com/gJ3Dx0f.png)
