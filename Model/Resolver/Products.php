@@ -23,12 +23,12 @@ declare(strict_types=1);
 
 namespace Mageplaza\BlogGraphQl\Model\Resolver;
 
-use Mageplaza\Blog\Helper\Data;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\Builder as SearchCriteriaBuilder;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Mageplaza\Blog\Helper\Data;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\Query\Filter;
 
 /**
@@ -42,6 +42,7 @@ class Products implements ResolverInterface
      * @var Data
      */
     private $_helperData;
+
     /**
      * @var SearchCriteriaBuilder
      */
@@ -78,8 +79,8 @@ class Products implements ResolverInterface
         $searchCriteria = $this->searchCriteriaBuilder->build('products', $args);
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
-        $post       = $this->_helperData->getFactoryByType()->create()->load($args['postId']);
-        $collection = $post->getSelectedProductsCollection();
+        $post         = $this->_helperData->getFactoryByType()->create()->load($args['postId']);
+        $collection   = $post->getSelectedProductsCollection();
         $searchResult = $this->filterQuery->getResult($searchCriteria, 'product', $collection);
 
         $pageInfo = $this->getPageInfo($searchResult, $searchCriteria, $args);
@@ -99,7 +100,7 @@ class Products implements ResolverInterface
      * @return array
      * @throws GraphQlInputException
      */
-    public function getPageInfo($searchResult, $searchCriteria, $args) : array
+    public function getPageInfo($searchResult, $searchCriteria, $args): array
     {
         //possible division by 0
         if ($searchCriteria->getPageSize()) {
@@ -117,6 +118,7 @@ class Products implements ResolverInterface
                 )
             );
         }
+
         return [
             'pageSize'        => $args['pageSize'],
             'currentPage'     => $args['currentPage'],

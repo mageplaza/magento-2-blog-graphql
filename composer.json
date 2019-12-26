@@ -1,0 +1,23 @@
+{
+  "name": "mageplaza/module-blog-graphql",
+  "description": "Magento 2 Blog GraphQL extension",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Mageplaza",
+      "email": "support@mageplaza.com",
+      "homepage": "https://www.mageplaza.com",
+      "role": "Technical Support"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Mageplaza\\BlogGraphQl\\": ""
+    }
+  }
+}

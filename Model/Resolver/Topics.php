@@ -90,7 +90,7 @@ class Topics implements ResolverInterface
      * @return array
      * @throws GraphQlInputException
      */
-    public function getPageInfo($searchResult, $searchCriteria, $args) : array
+    public function getPageInfo($searchResult, $searchCriteria, $args): array
     {
         //possible division by 0
         if ($searchCriteria->getPageSize()) {
@@ -108,6 +108,7 @@ class Topics implements ResolverInterface
                 )
             );
         }
+
         return [
             'pageSize'        => $args['pageSize'],
             'currentPage'     => $args['currentPage'],

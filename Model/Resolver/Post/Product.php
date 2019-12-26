@@ -56,7 +56,7 @@ class Product implements ResolverInterface
         Filter $filterQuery
     ) {
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->filterQuery = $filterQuery;
+        $this->filterQuery           = $filterQuery;
     }
 
     /**
@@ -64,12 +64,13 @@ class Product implements ResolverInterface
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
-        $post= $value['model'];
+        $post              = $value['model'];
         $productCollection = $post->getSelectedProductsCollection();
-        $searchCriteria = $this->searchCriteriaBuilder->build('products', $args);
+        $searchCriteria    = $this->searchCriteriaBuilder->build('products', $args);
         $searchCriteria->setCurrentPage(1);
         $searchCriteria->setPageSize(10);
         $searchResult = $this->filterQuery->getResult($searchCriteria, 'product', $productCollection);
+
         return [
             'total_count' => $searchResult->getTotalCount(),
             'items'       => $searchResult->getItemsSearchResult()

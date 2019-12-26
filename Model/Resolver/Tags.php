@@ -88,7 +88,7 @@ class Tags implements ResolverInterface
      * @return array
      * @throws GraphQlInputException
      */
-    public function getPageInfo($searchResult, $searchCriteria, $args) : array
+    public function getPageInfo($searchResult, $searchCriteria, $args): array
     {
         //possible division by 0
         if ($searchCriteria->getPageSize()) {
@@ -106,6 +106,7 @@ class Tags implements ResolverInterface
                 )
             );
         }
+
         return [
             'pageSize'        => $args['pageSize'],
             'currentPage'     => $args['currentPage'],
@@ -123,7 +124,6 @@ class Tags implements ResolverInterface
      */
     protected function validateArgs(array $args)
     {
-
         if (isset($args['currentPage']) && $args['currentPage'] < 1) {
             throw new GraphQlInputException(__('currentPage value must be greater than 0.'));
         }

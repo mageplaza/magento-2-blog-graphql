@@ -24,13 +24,13 @@ declare(strict_types=1);
 namespace Mageplaza\BlogGraphQl\Model\Resolver;
 
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use Mageplaza\Blog\Helper\Data;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\Builder as SearchCriteriaBuilder;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use Mageplaza\Blog\Helper\Data;
 use Mageplaza\Blog\Model\ResourceModel\Post\Collection;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\Query\Filter;
 
@@ -45,6 +45,7 @@ class Posts implements ResolverInterface
      * @var Data
      */
     private $_helperData;
+
     /**
      * @var SearchCriteriaBuilder
      */
@@ -108,7 +109,8 @@ class Posts implements ResolverInterface
                 throw new GraphQlInputException(__('No find your function'));
         }
         $searchResult = $this->filterQuery->getResult($searchCriteria, 'post', $collection);
-        $pageInfo = $this->getPageInfo($searchResult, $searchCriteria, $args);
+        $pageInfo     = $this->getPageInfo($searchResult, $searchCriteria, $args);
+
         return [
             'total_count' => $searchResult->getTotalCount(),
             'items'       => $searchResult->getItemsSearchResult(),
@@ -124,7 +126,7 @@ class Posts implements ResolverInterface
      * @return array
      * @throws GraphQlInputException
      */
-    public function getPageInfo($searchResult, $searchCriteria, $args) : array
+    public function getPageInfo($searchResult, $searchCriteria, $args): array
     {
         //possible division by 0
         if ($searchCriteria->getPageSize()) {
@@ -142,6 +144,7 @@ class Posts implements ResolverInterface
                 )
             );
         }
+
         return [
             'pageSize'        => $args['pageSize'],
             'currentPage'     => $args['currentPage'],
@@ -155,7 +158,7 @@ class Posts implements ResolverInterface
     /**
      * @return AbstractCollection
      */
-    protected function getPostList() : AbstractCollection
+    protected function getPostList(): AbstractCollection
     {
         return $this->_helperData->getFactoryByType()->create()->getCollection();
     }
@@ -166,7 +169,7 @@ class Posts implements ResolverInterface
      * @return AbstractCollection
      * @throws GraphQlInputException
      */
-    protected function getPostViewByAuthorName($args) : AbstractCollection
+    protected function getPostViewByAuthorName($args): AbstractCollection
     {
         if (!isset($args['authorName'])) {
             throw new GraphQlInputException(__('AuthorName value is not null'));
@@ -185,7 +188,7 @@ class Posts implements ResolverInterface
      * @return Collection
      * @throws GraphQlInputException
      */
-    public function getPostByCategoryId($args) : Collection
+    public function getPostByCategoryId($args): Collection
     {
         if (!isset($args['categoryId'])) {
             throw new GraphQlInputException(__('categoryId value is not null'));
@@ -201,7 +204,7 @@ class Posts implements ResolverInterface
      * @return Collection
      * @throws GraphQlInputException
      */
-    protected function getPostByCategoryKey($args) : Collection
+    protected function getPostByCategoryKey($args): Collection
     {
         if (!isset($args['categoryKey'])) {
             throw new GraphQlInputException(__('categoryKey value is not null'));
@@ -218,7 +221,7 @@ class Posts implements ResolverInterface
      * @return Collection
      * @throws GraphQlInputException
      */
-    protected function getPostViewByTagName($args) : Collection
+    protected function getPostViewByTagName($args): Collection
     {
         if (!isset($args['tagName'])) {
             throw new GraphQlInputException(__('tagName value is not null'));
@@ -235,7 +238,7 @@ class Posts implements ResolverInterface
      * @return Collection
      * @throws GraphQlInputException
      */
-    protected function getPostViewByTopic($args) : Collection
+    protected function getPostViewByTopic($args): Collection
     {
         if (!isset($args['topicId'])) {
             throw new GraphQlInputException(__('topicId value is not null'));
@@ -252,7 +255,7 @@ class Posts implements ResolverInterface
      * @throws GraphQlInputException
      * @throws LocalizedException
      */
-    protected function getRelatedPost($args) : Collection
+    protected function getRelatedPost($args): Collection
     {
         if (!isset($args['postId'])) {
             throw new GraphQlInputException(__('postId value is not null'));

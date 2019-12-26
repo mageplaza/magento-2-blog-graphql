@@ -23,12 +23,12 @@ declare(strict_types=1);
 
 namespace Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider;
 
+use Magento\Catalog\Api\Data\ProductSearchResultsInterfaceFactory;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Api\SearchResultsInterface;
 use Mageplaza\Blog\Model\ResourceModel\Category\Collection;
 use Mageplaza\Blog\Model\ResourceModel\Category\CollectionFactory;
-use Magento\Catalog\Api\Data\ProductSearchResultsInterfaceFactory;
-use Magento\Framework\Api\SearchResultsInterface;
 
 /**
  * Product field data provider, used for GraphQL resolver processing.
@@ -64,7 +64,7 @@ class Category
     ) {
         $this->collectionFactory    = $collectionFactory;
         $this->searchResultsFactory = $searchResultsFactory;
-        $this->collectionProcessor = $collectionProcessor;
+        $this->collectionProcessor  = $collectionProcessor;
     }
 
     /**

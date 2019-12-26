@@ -24,15 +24,15 @@ declare(strict_types=1);
 namespace Mageplaza\BlogGraphQl\Model\Resolver\Filter\Query;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Mageplaza\Blog\Model\Post as PostModel;
 use Mageplaza\Blog\Model\Category as CategoryModel;
+use Mageplaza\Blog\Model\Post as PostModel;
 use Mageplaza\Blog\Model\Tag as TagModel;
 use Mageplaza\Blog\Model\Topic as TopicModel;
-use Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider\Post;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider\Category;
+use Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider\Post;
+use Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider\Product;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider\Tag;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider\Topic;
-use Mageplaza\BlogGraphQl\Model\Resolver\Filter\DataProvider\Product;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\SearchResult;
 use Mageplaza\BlogGraphQl\Model\Resolver\Filter\SearchResultFactory;
 
@@ -94,7 +94,7 @@ class Filter
         $this->categoryDataProvider = $categoryDataProvider;
         $this->tagDataProvider      = $tagDataProvider;
         $this->topicDataProvider    = $topicDataProvider;
-        $this->productDataProvider    = $productDataProvider;
+        $this->productDataProvider  = $productDataProvider;
     }
 
     /**

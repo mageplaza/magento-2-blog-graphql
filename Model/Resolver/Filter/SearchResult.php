@@ -46,7 +46,7 @@ class SearchResult
      */
     public function __construct(int $totalCount, array $itemsSearchResult)
     {
-        $this->totalCount = $totalCount;
+        $this->totalCount        = $totalCount;
         $this->itemsSearchResult = $itemsSearchResult;
     }
 
@@ -55,7 +55,7 @@ class SearchResult
      *
      * @return int
      */
-    public function getTotalCount() : int
+    public function getTotalCount(): int
     {
         return $this->totalCount;
     }
@@ -65,7 +65,7 @@ class SearchResult
      *
      * @return array
      */
-    public function getItemsSearchResult() : array
+    public function getItemsSearchResult(): array
     {
         return $this->itemsSearchResult;
     }

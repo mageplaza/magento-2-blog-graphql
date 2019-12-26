@@ -67,7 +67,7 @@ class Comments implements ResolverInterface
     ) {
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->collectionProcessor   = $collectionProcessor;
-        $this->collectionFactory = $collectionFactory;
+        $this->collectionFactory     = $collectionFactory;
     }
 
     /**
@@ -100,7 +100,7 @@ class Comments implements ResolverInterface
      * @return array
      * @throws GraphQlInputException
      */
-    public function getPageInfo($searchResult, $searchCriteria, $args) : array
+    public function getPageInfo($searchResult, $searchCriteria, $args): array
     {
         //possible division by 0
         if ($searchCriteria->getPageSize()) {
@@ -118,6 +118,7 @@ class Comments implements ResolverInterface
                 )
             );
         }
+
         return [
             'pageSize'        => $args['pageSize'],
             'currentPage'     => $args['currentPage'],
