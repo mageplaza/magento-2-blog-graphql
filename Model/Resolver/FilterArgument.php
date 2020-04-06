@@ -26,6 +26,7 @@ namespace Mageplaza\BlogGraphQl\Model\Resolver;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\ConfigInterface;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\FieldEntityAttributesInterface;
+use Mageplaza\Blog\Helper\Data;
 
 /**
  * Class FilterArgument
@@ -35,15 +36,23 @@ class FilterArgument implements FieldEntityAttributesInterface
 {
     /** @var ConfigInterface */
     private $config;
+    /**
+     * @var Data
+     */
+    private $helperData;
 
     /**
      * FilterArgument constructor.
      *
      * @param ConfigInterface $config
+     * @param Data $helperData
      */
-    public function __construct(ConfigInterface $config)
-    {
+    public function __construct(
+        ConfigInterface $config,
+        Data $helperData
+    ) {
         $this->config = $config;
+        $this->helperData = $helperData;
     }
 
     /**
@@ -56,10 +65,11 @@ class FilterArgument implements FieldEntityAttributesInterface
         foreach ($entities as $entity) {
             /** @var Field $field */
             foreach ($this->config->getConfigElement($entity)->getFields() as $field) {
-                $fields[$field->getName()] = '';
+                $fieldName          = $field->getName();
+                $fields[$fieldName] = ['fieldName' => $fieldName];
             }
         }
 
-        return array_keys($fields);
+        return $this->helperData->versionCompare('2.3.4') ? $fields : array_keys($fields);
     }
 }
