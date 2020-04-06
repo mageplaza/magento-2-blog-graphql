@@ -80,7 +80,7 @@ class Products implements ResolverInterface
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
         $post         = $this->_helperData->getFactoryByType()->create()->load($args['postId']);
-        $collection   = $post->getSelectedProductsCollection();
+        $collection   = $post->getSelectedProductsCollection()->addAttributeToSelect('*');
         $searchResult = $this->filterQuery->getResult($searchCriteria, 'product', $collection);
 
         $pageInfo = $this->getPageInfo($searchResult, $searchCriteria, $args);

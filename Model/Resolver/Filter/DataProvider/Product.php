@@ -84,7 +84,11 @@ class Product
         if (!$collection) {
             $collection = $this->collectionFactory->create();
         }
-        $this->collectionProcessor->process($searchCriteria, $collection);
+        foreach ($searchCriteria->getFilterGroups() as $filterGroup) {
+            foreach ($filterGroup->getFilters() as $filter) {
+                $collection->addFieldToFilter($filter->getField(), [$filter->getConditionType()=>$filter->getValue()]);
+            }
+        }
         $searchResult = $this->searchResultsFactory->create();
         $searchResult->setSearchCriteria($searchCriteria);
         $searchResult->setItems($collection->getItems());
