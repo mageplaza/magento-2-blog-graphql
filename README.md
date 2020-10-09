@@ -1,4 +1,5 @@
-# Blog GraphQL
+# Magento 2 Blog GraphQL (Support PWA)
+
 
 ## How to install
 
