@@ -29,7 +29,7 @@ To perform GraphQL queries in Magento, please do the following requirements:
 - [Blog GraphQL & examples](https://documenter.getpostman.com/view/10589000/SzS1T8pe?version=latest)
 
 
-![Magento 2 blog graphql pwa](https://i.imgur.com/xbRnefr.png)
+![Magento 2 blog graphql pwa](https://i.imgur.com/Z36HXmh.gif)
 
 
 ## 4. Contribute to this module
