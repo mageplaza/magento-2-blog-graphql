@@ -1,4 +1,4 @@
-# Magento 2 Blog GraphQL (Support PWA)
+# Magento 2 Blog GraphQL/PWA
 
 Magento 2 Blog GraphQL is a part of Blog extendion that add GraphQL features, this support for PWA Studio.
 ## How to install
@@ -15,11 +15,21 @@ php bin/magento setup:static-content:deploy
 
 To perform GraphQL queries in Magento, please do the following requirements:
 
-- Use Magento 2.3.x. Return your site to developer mode
+- Use Magento 2.3.x or higher. Return your site to developer mode
 - Install the ChromeiQL extension for Chrome browser (currently does not support other browsers)
 - Set GraphQL endpoint as `http://<magento2-3-server>/graphql` in url box, click **Set endpoint**. 
-(e.g. http://develop.mageplaza.com/graphql/ce232/graphql)
+(e.g. `http://develop.mageplaza.com/graphql`)
 - Perform a query in the left cell, click the **Run** button or **Ctrl + Enter** to see the result in the right cell
 - To view the queries that the **Mageplaza Blog GraphQL** extension supports, you can look in `Docs > Query` in the right corner
 
 ![](https://i.imgur.com/gJ3Dx0f.png)
+
+## Magento 2 Blog API Devdocs & Examples
+Visit https://documenter.getpostman.com/view/10589000/SzRxXqt3?version=latest#intro
+
+![magento 2 blog api](https://i.imgur.com/w0qTxhC.png)
+
+## Magento 2 Blog GraphQL Devdocs & Examples
+
+Visit https://documenter.getpostman.com/view/10589000/SzS1T8pe?version=latest
+![Magento 2 blog graphql pwa](https://i.imgur.com/xbRnefr.png)
