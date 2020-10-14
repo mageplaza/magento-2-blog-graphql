@@ -18,14 +18,10 @@ Magento 2 Blog GraphQL requires installing [Mageplaza blog](https://github.com/m
 
 To perform GraphQL queries in Magento, please do the following requirements:
 
-- Use Magento 2.3.x or higher. Return your site to developer mode
-- Install the ChromeiQL extension for Chrome browser (currently does not support other browsers)
-- Set GraphQL endpoint as `http://<magento2-3-server>/graphql` in url box, click **Set endpoint**. 
-(e.g. `http://develop.mageplaza.com/graphql`)
-- Perform a query in the left cell, click the **Run** button or **Ctrl + Enter** to see the result in the right cell
+- Use Magento 2.3.x or higher. Set your site to [developer mode](https://www.mageplaza.com/devdocs/enable-disable-developer-mode-magento-2.html).
+- Set GraphQL endpoint as `http://<magento2-server>/graphql` in url box, click **Set endpoint**. 
+(e.g. `http://dev.site.com/graphql`)
 - To view the queries that the **Mageplaza Blog GraphQL** extension supports, you can look in `Docs > Query` in the right corner
-
-![](https://i.imgur.com/gJ3Dx0f.png)
 
 ## 3. Devdocs
 
