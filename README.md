@@ -38,4 +38,5 @@ Feel free to **Fork** and contrinute to this module and create a pull request so
 
 ## 5. Get Support
 
-Feel free to [contact us](https://www.mageplaza.com/contact.html) if you have any further questions.
+- Feel free to [contact us](https://www.mageplaza.com/contact.html) if you have any further questions.
+- Like this project, Give us a **Star** ![star](https://i.imgur.com/S8e0ctO.png)
