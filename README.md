@@ -1,6 +1,6 @@
 # Magento 2 Blog GraphQL (Support PWA)
 
-
+Magento 2 Blog GraphQL is a part of Blog extendion that add GraphQL features, this support for PWA Studio.
 ## How to install
 
 Run the following command in Magento 2 root folder:
