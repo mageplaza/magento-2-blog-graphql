@@ -1,7 +1,7 @@
 # Magento 2 Blog GraphQL/PWA
 
 Magento 2 Blog GraphQL is a part of Blog extendion that add GraphQL features, this support for PWA Studio.
-## How to install
+## 1. How to install
 
 Run the following command in Magento 2 root folder:
 
@@ -11,7 +11,10 @@ php bin/magento setup:upgrade
 php bin/magento setup:static-content:deploy
 ```
 
-## How to use
+**Note:**
+Magento 2 Blog GraphQL requires installing [Mageplaza blog](https://github.com/mageplaza/magento-2-blog) in your Magento installation.
+
+## 2. How to use
 
 To perform GraphQL queries in Magento, please do the following requirements:
 
@@ -24,12 +27,19 @@ To perform GraphQL queries in Magento, please do the following requirements:
 
 ![](https://i.imgur.com/gJ3Dx0f.png)
 
-## Magento 2 Blog API Devdocs & Examples
-Visit https://documenter.getpostman.com/view/10589000/SzRxXqt3?version=latest#intro
+## 3. Devdocs
 
-![magento 2 blog api](https://i.imgur.com/w0qTxhC.png)
+- [Blog API & examples](https://documenter.getpostman.com/view/10589000/SzRxXqt3?version=latest#intro)
+- [Blog GraphQL & examples](https://documenter.getpostman.com/view/10589000/SzS1T8pe?version=latest)
 
-## Magento 2 Blog GraphQL Devdocs & Examples
 
-Visit https://documenter.getpostman.com/view/10589000/SzS1T8pe?version=latest
 ![Magento 2 blog graphql pwa](https://i.imgur.com/xbRnefr.png)
+
+
+## 4. Contribute to this module
+
+Feel free to **Fork** and contrinute to this module and create a pull request so we will merge your changes main branch.
+
+## 5. Get Support
+
+Feel free to [contact us](https://www.mageplaza.com/contact.html) if you have any further questions.
