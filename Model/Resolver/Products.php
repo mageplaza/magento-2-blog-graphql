@@ -76,7 +76,7 @@ class Products implements ResolverInterface
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $this->validateArgs($args);
-        $searchCriteria = $this->searchCriteriaBuilder->build('products', $args);
+        $searchCriteria = $this->searchCriteriaBuilder->build('blog_products', $args);
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
         $post         = $this->_helperData->getFactoryByType()->create()->load($args['postId']);
