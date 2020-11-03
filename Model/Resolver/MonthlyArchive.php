@@ -107,7 +107,7 @@ class MonthlyArchive implements ResolverInterface
             $monthlyArchive = $year . '-' . $monthly;
         }
 
-        $archives   = $this->getMonthlyArchive($monthlyArchive, $storeId, $args);
+        $archives = $this->getMonthlyArchive($monthlyArchive, $storeId, $args);
 
         return [
             'total_count' => count($archives),

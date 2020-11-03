@@ -89,6 +89,7 @@ class Post
                 ['numbers_view']
             );
         }
+        $collection->addFieldToFilter('enabled', 1);
         $this->collectionProcessor->process($searchCriteria, $collection);
         $searchResult = $this->searchResultsFactory->create();
         $searchResult->setSearchCriteria($searchCriteria);
