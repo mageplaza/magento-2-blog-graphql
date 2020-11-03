@@ -154,6 +154,7 @@ class Filter
         /** @var PostModel|CategoryModel|TagModel|TopicModel $post */
         foreach ($list->getItems() as $item) {
             $item->load($item->getId());
+            $item->getUrlImage();
             $item->getAuthorUrl();
             $item->getAuthorName();
             $item->getViewTraffic();
