@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace Mageplaza\BlogGraphQl\Model\Resolver;
 
+use Magento\Framework\Api\SortOrder;
+use Magento\Framework\Api\SortOrderBuilder;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
@@ -40,7 +42,6 @@ use Mageplaza\BlogGraphQl\Model\Resolver\Filter\Query\Filter;
  */
 class Posts implements ResolverInterface
 {
-
     /**
      * @var Data
      */
@@ -57,20 +58,28 @@ class Posts implements ResolverInterface
     protected $filterQuery;
 
     /**
+     * @var SortOrderBuilder
+     */
+    private $sortOrderBuilder;
+
+    /**
      * Posts constructor.
      *
      * @param Data $helperData
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param SortOrderBuilder $sortOrderBuilder
      * @param Filter $filterQuery
      */
     public function __construct(
         Data $helperData,
         SearchCriteriaBuilder $searchCriteriaBuilder,
+        SortOrderBuilder $sortOrderBuilder,
         Filter $filterQuery
     ) {
         $this->_helperData           = $helperData;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->filterQuery           = $filterQuery;
+        $this->sortOrderBuilder      = $sortOrderBuilder;
     }
 
     /**
@@ -79,9 +88,25 @@ class Posts implements ResolverInterface
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $this->validateArgs($args);
+        $sortOrder = null;
+        if (isset($args['sortBy'])) {
+            if ($args['sortBy'] === 'Latest') {
+                $sortOrder = $this->sortOrderBuilder
+                    ->setField('publish_date')
+                    ->setDirection(SortOrder::SORT_DESC)->create();
+            }
+            if ($args['sortBy'] === 'Popular') {
+                $sortOrder = $this->sortOrderBuilder
+                    ->setField('numbers_view')
+                    ->setDirection(SortOrder::SORT_DESC)->create();
+            }
+        }
         $searchCriteria = $this->searchCriteriaBuilder->build('posts', $args);
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
+        if ($sortOrder) {
+            $searchCriteria->setSortOrders([$sortOrder]);
+        }
 
         switch ($args['action']) {
             case 'get_post_list':

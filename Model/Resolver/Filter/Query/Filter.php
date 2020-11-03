@@ -23,7 +23,10 @@ declare(strict_types=1);
 
 namespace Mageplaza\BlogGraphQl\Model\Resolver\Filter\Query;
 
+use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Catalog\Model\Product as ProductModel;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Mageplaza\Blog\Helper\Data;
 use Mageplaza\Blog\Model\Category as CategoryModel;
 use Mageplaza\Blog\Model\Post as PostModel;
 use Mageplaza\Blog\Model\Tag as TagModel;
@@ -72,6 +75,16 @@ class Filter
     private $productDataProvider;
 
     /**
+     * @var Data
+     */
+    private $helperData;
+
+    /**
+     * @var ProductRepositoryInterface
+     */
+    private $productRepository;
+
+    /**
      * Filter constructor.
      *
      * @param SearchResultFactory $searchResultFactory
@@ -80,6 +93,8 @@ class Filter
      * @param Tag $tagDataProvider
      * @param Topic $topicDataProvider
      * @param Product $productDataProvider
+     * @param Data $helperData
+     * @param ProductRepositoryInterface $productRepository
      */
     public function __construct(
         SearchResultFactory $searchResultFactory,
@@ -87,7 +102,9 @@ class Filter
         Category $categoryDataProvider,
         Tag $tagDataProvider,
         Topic $topicDataProvider,
-        Product $productDataProvider
+        Product $productDataProvider,
+        Data $helperData,
+        ProductRepositoryInterface $productRepository
     ) {
         $this->searchResultFactory  = $searchResultFactory;
         $this->postDataProvider     = $postDataProvider;
@@ -95,6 +112,8 @@ class Filter
         $this->tagDataProvider      = $tagDataProvider;
         $this->topicDataProvider    = $topicDataProvider;
         $this->productDataProvider  = $productDataProvider;
+        $this->helperData           = $helperData;
+        $this->productRepository    = $productRepository;
     }
 
     /**
@@ -134,6 +153,23 @@ class Filter
         $listArray = [];
         /** @var PostModel|CategoryModel|TagModel|TopicModel $post */
         foreach ($list->getItems() as $item) {
+            $item->load($item->getId());
+            $item->getAuthorUrl();
+            $item->getAuthorName();
+            $item->getViewTraffic();
+            $item->getAuthorUrlKey();
+
+            if ($item instanceof ProductModel) {
+                $images = $item->getMediaGalleryImages()->getSize() ? $item->getMediaGalleryImages() : [];
+                $imagesData = [];
+                if (is_object($images)) {
+                    foreach ($images->getItems() as $it) {
+                        $imagesData[] = $it->getUrl();
+                    }
+                }
+                $item->setData('images', $imagesData);
+            }
+
             $listArray[$item->getId()]          = $item->getData();
             $listArray[$item->getId()]['model'] = $item;
         }

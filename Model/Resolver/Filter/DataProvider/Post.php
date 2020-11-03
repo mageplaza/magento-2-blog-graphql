@@ -83,6 +83,11 @@ class Post
         /** @var Collection $collection */
         if (!$collection) {
             $collection = $this->collectionFactory->create();
+            $collection->join(
+                ['ptr' => $collection->getTable('mageplaza_blog_post_traffic')],
+                'main_table.post_id=ptr.post_id',
+                ['numbers_view']
+            );
         }
         $this->collectionProcessor->process($searchCriteria, $collection);
         $searchResult = $this->searchResultsFactory->create();
