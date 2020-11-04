@@ -1,6 +1,16 @@
 # Magento 2 Blog GraphQL/PWA
 
-Magento 2 Blog GraphQL is a part of Blog extendion that add GraphQL features, this support for PWA Studio.
+[Mageplaza Blog extension for Magento 2](https://www.mageplaza.com/magento-2-better-blog/) enables creating and managing blogs right on the Magento 2 store with essential features and functionalities for a blog to perform well as usual. 
+
+As the Magento 2 Blog extension is integrated right into the Magento backend, the store admin can manage their store and the blog all in one place. It’s easy and convenient to open a blog on your store without any third-party framework needed. The extension also allows you to create a blog that is specified for a specific category. So that in case you want to show more information about specific products to promote or simply provide customers with a more in-depth understanding of them, you can do it without any difficulties. 
+
+You don’t have to worry whether your blog looks ugly when showing on your store as the Magento 2 Blog is developed with a responsive design. This blog will be displayed in a clean-cut and seamless interface across any device and screen that your customers root to visit your store. The off-canvas menu makes it easy for customers to read and interact with your blog. They can view, browse through the blog’s elements, and share your blog posts on other social networks with one simple click. 
+
+The module also supports Blog Widgets that you can use to create specific categories for your blog, such as recent posts or new posts. This widget will be displayed in the sidebar of your blog, making it convenient for visitors to dig up the information you show; at the same time, designate your page with a well-organized and informative layout. 
+
+What’s more, Magento 2 Blog GraphQL is a part of Blog extension that adds GraphQL features, this support for PWA Studio. This upgrade means to give the extension continuous and fast access to new features and updates. Your store will also have a hassle-free and seamless experience with any changes you make in the future. 
+
+
 ## 1. How to install
 
 Run the following command in Magento 2 root folder:
