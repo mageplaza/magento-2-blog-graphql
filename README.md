@@ -8,7 +8,7 @@ You don’t have to worry whether your blog looks ugly when showing on your stor
 
 The module also supports Blog Widgets that you can use to create specific categories for your blog, such as recent posts or new posts. This widget will be displayed in the sidebar of your blog, making it convenient for visitors to dig up the information you show; at the same time, designate your page with a well-organized and informative layout. 
 
-What’s more, Magento 2 Blog GraphQL is a part of Blog extension that adds GraphQL features, this support for PWA Studio. This upgrade means to give the extension continuous and fast access to new features and updates. Your store will also have a hassle-free and seamless experience with any changes you make in the future. 
+What’s more, **Magento 2 Blog GraphQL is a part of Blog extension that adds GraphQL features, this support for PWA Studio.** This upgrade means to give the extension continuous and fast access to new features and updates. Your store will also have a hassle-free and seamless experience with any changes you make in the future. 
 
 
 ## 1. How to install
@@ -31,14 +31,14 @@ To perform GraphQL queries in Magento, please do the following requirements:
 - Use Magento 2.3.x or higher. Set your site to [developer mode](https://www.mageplaza.com/devdocs/enable-disable-developer-mode-magento-2.html).
 - Set GraphQL endpoint as `http://<magento2-server>/graphql` in url box, click **Set endpoint**. 
 (e.g. `http://dev.site.com/graphql`)
-- To view the queries that the **Mageplaza Blog GraphQL** extension supports, you can look in `Docs > Query` in the right corner
+- To view the queries that the **Mageplaza Blog GraphQL** extension supports, you can look in `Docs > Query` in the right corner.
 
 ## 3. Devdocs
 
 - [Blog API & examples](https://documenter.getpostman.com/view/10589000/SzRxXqt3?version=latest#intro)
 - [Blog GraphQL & examples](https://documenter.getpostman.com/view/10589000/SzS1T8pe?version=latest)
 
-Click on Run in Postman for add these collections to your workspace quickly.
+Click on Run in Postman to add these collections to your workspace quickly.
 
 ![Magento 2 blog graphql pwa](https://i.imgur.com/lhsXlUR.gif)
 
