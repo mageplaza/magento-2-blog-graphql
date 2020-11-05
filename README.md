@@ -45,7 +45,7 @@ Click on Run in Postman to add these collections to your workspace quickly.
 
 ## 4. Contribute to this module
 
-Feel free to **Fork** and contrinute to this module and create a pull request so we will merge your changes main branch.
+Feel free to **Fork** and contribute to this module and create a pull request so we will merge your changes main branch.
 
 ## 5. Get Support
 
