@@ -8,7 +8,7 @@ You don’t have to worry whether your blog looks ugly when showing on your stor
 
 The module also supports Blog Widgets that you can use to create specific categories for your blog, such as recent posts or new posts. This widget will be displayed in the sidebar of your blog, making it convenient for visitors to dig up the information you show; at the same time, designate your page with a well-organized and informative layout. 
 
-What’s more, **Magento 2 Blog GraphQL is a part of Blog extension that adds GraphQL features, this supports PWA Studio.** This upgrade means to give the extension continuous and fast access to new features and updates. Your store will also have a hassle-free and seamless experience with PWA compatibility you make in the future. 
+What’s more, **Magento 2 Blog GraphQL is a part of Mageplaza Blog extension that adds GraphQL features, this supports PWA Studio.** This upgrade means to give the extension extended scalability to work even more smoothly on your website. Your store will also has a hassle-free and seamless experience with any updates you make in the future thanks to the PWA compatibility. 
 
 
 ## 1. How to install
