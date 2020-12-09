@@ -1,4 +1,4 @@
-# Magento 2 Blog GraphQL/PWA
+# Magento 2 Blog PWA / GraphQL
 
 [Mageplaza Blog extension for Magento 2](https://www.mageplaza.com/magento-2-better-blog/) enables creating and managing blogs right on the Magento 2 store with essential features and functionalities for a blog to perform well as usual. 
 
