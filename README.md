@@ -1,4 +1,4 @@
-# Magento 2 Blog PWA / GraphQL
+# Magento 2 Blog GraphQL
 
 **Magento 2 Blog GraphQL is a part of Mageplaza Blog extension that adds GraphQL features, this supports PWA Studio.** This upgrade means to give the extension extended scalability to work even more smoothly on your website. Your store will also has a hassle-free and seamless experience with any updates you make in the future thanks to the PWA compatibility.
 
