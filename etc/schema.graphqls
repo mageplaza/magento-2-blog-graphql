@@ -28,6 +28,7 @@ type Query {
         postId: Int @doc(description: "Post's Id use in the filter. Apply when action is get_related_post.")
         pageSize: Int = 10 @doc(description: "How many items should show on the page.")
         currentPage: Int = 1 @doc(description: "Allows to using paging it start with 1.")
+        sortBy: String @doc(description: "Sort By 'Popular' or 'Latest' of the post.")
     ):PostsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Posts") @doc(description: "The mpBlogPosts query searches for post that match the criteria specified in the filter.")
     mpBlogTags(
         filter: TagsFilterInput @doc(description: "Identifies which product attributes to search for and return.")
@@ -60,6 +61,14 @@ type Query {
         pageSize: Int = 10 @doc(description: "How many items should show on the page.")
         currentPage: Int = 1 @doc(description: "Allows to using paging it start with 1.")
     ):ProductsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Products") @doc(description: "The mpBlogProducts query searches for Category that match the criteria specified in the filter.")
+    mpBlogConfigs(
+        storeId: Int @doc(description: "Store Id use in the filter.")
+    ):ConfigsOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\Config") @doc(description: "The mpBlogConfigs query gets the config of Blog extension.")
+    mpBlogMonthlyArchive(
+        storeId: Int @doc(description: "Store Id use in the filter.")
+        monthly: Int @doc(description: "Monthly use in the filter.")
+        year: Int @doc(description: "Year use in the filter.")
+    ):MonthlyArchiveOutput @resolver(class: "\\Mageplaza\\BlogGraphQl\\Model\\Resolver\\MonthlyArchive") @doc(description: "The mpBlogMonthlyArchive query gets posts follow monthly archive.")
 }
 
 input PostsFilterInput {
@@ -217,10 +226,14 @@ type Post {
     name: String @doc(description: "The name of the post."),
     short_description: String @doc(description: "The short description of the post."),
     post_content: String @doc(description: "The content of the post."),
-    store_ids: Int @doc(description: "An ID that identifies the store."),
+    store_ids: String @doc(description: "An ID that identifies the store."),
     image: String @doc(description: "The image of the post."),
     enabled: Int @doc(description: "Indicates whether a post is enabled."),
     url_key: String @doc(description: "The url key of the post."),
+    author_url: String @doc(description: "The full url of the author."),
+    author_url_key: String @doc(description: "The url key of the author."),
+    author_name: String @doc(description: "The name of the author."),
+    view_traffic: Int @doc(description: "The view count of the post."),
     in_rss: Int @doc(description: "Indicates whether a post in rss."),
     allow_comment: Int @doc(description: "Indicates whether users can write a comment."),
     meta_title: String @doc(description: "The meta title of the post."),
@@ -244,7 +257,7 @@ type Tag {
     tag_id: Int @doc(description: "An ID that uniquely identifies the tag."),
     name: String @doc(description: "The name of the tag."),
     description: String @doc(description: "The description of the tag."),
-    store_ids: Int @doc(description: "An ID that identifies the store."),
+    store_ids: String @doc(description: "An ID that identifies the store."),
     enabled: Int @doc(description: "Indicates whether a tag is enabled."),
     url_key: String @doc(description: "The url key of the tag."),
     meta_title: String @doc(description: "The meta title of the tag."),
@@ -261,7 +274,7 @@ type Topic {
     topic_id: Int @doc(description: "An ID that uniquely identifies the topic."),
     name: String @doc(description: "The name of the topic."),
     description: String @doc(description: "The description of the topic."),
-    store_ids: Int @doc(description: "An ID that identifies the store."),
+    store_ids: String @doc(description: "An ID that identifies the store."),
     enabled: Int @doc(description: "Indicates whether a topic is enabled."),
     url_key: String @doc(description: "The url key of the topic."),
     meta_title: String @doc(description: "The meta title of the topic."),
@@ -283,7 +296,7 @@ type Comment {
     content: String @doc(description: "The content of the comment."),
     created_at: String @doc(description: "Timestamp indicating when the comment was created."),
     status: Int @doc(description: "The status of the comment."),
-    store_ids: Int @doc(description: "An ID that identifies the store."),
+    store_ids: String @doc(description: "An ID that identifies the store."),
     user_name: String @doc(description: "The name of the user."),
     user_email: String @doc(description: "The email of the user."),
     import_source: String @doc(description: "The import source of the comment.")
@@ -294,7 +307,7 @@ type Category {
     name: String @doc(description: "The name of the category."),
     url_key: String @doc(description: "The url key of the category."),
     description: String @doc(description: "The description of the category."),
-    store_ids: Int @doc(description: "An ID that identifies the store."),
+    store_ids: String @doc(description: "An ID that identifies the store."),
     enabled: Int @doc(description: "Indicates whether a category is enabled."),
     meta_title: String @doc(description: "The meta title of the category."),
     meta_keywords: String @doc(description: "The meta keywords of the category."),
@@ -316,8 +329,45 @@ type Product {
     attribute_set_id: Int @doc(description: "The attribute set assigned to the product."),
     type_id: String @doc(description: "One of simple, virtual, bundle, downloadable, grouped, or configurable."),
     sku: String @doc(description: "A number or code assigned to a product to identify the product, options, price, and manufacturer."),
+    url_key: String @doc(description: "The url key of the product."),
+    images: [String] @doc(description: "The images of the product."),
     has_options: Int @doc(description: "Indicates whether a product option is available."),
     required_options: Int @doc(description: "Indicates whether a product option is required."),
     created_at: String @doc(description: "Timestamp indicating when the product was created."),
     updated_at: String @doc(description: "Timestamp indicating when the product was updated.")
+}
+
+type ConfigsOutput {
+    general: General @doc(description: "General config."),
+    sidebar: Sidebar @doc(description: "Sidebar config.")
+    seo: Seo @doc(description: "Seo config.")
+}
+
+type General {
+    name: String @doc(description: "Blog Name."),
+    toplinks: Int @doc(description: "Show Blog Link in Top Menu."),
+    display_author: Int @doc(description: "Display author."),
+    display_style: Int @doc(description: "Display Blogs Mode."),
+    font_color: String @doc(description: "Choose blog's color.")
+}
+
+type Sidebar {
+    number_recent_posts: Int @doc(description: "Number of recent posts."),
+    number_mostview_posts: Int @doc(description: "Number of most view posts.")
+}
+
+type Seo {
+    meta_title: String @doc(description: "Meta title."),
+    meta_description: String @doc(description: "Meta description."),
+}
+
+type MonthlyArchiveOutput {
+    total_count: Int @doc(description: "The number of monthly archive returned"),
+    items: [MonthlyArchive] @doc(description: "An array of post that match the specified search criteria.")
+}
+
+type MonthlyArchive {
+    label: String @doc(description: "The label of Monthly Archive"),
+    quantity: Int @doc(description: "The quantity of Monthly Archive"),
+    items: [Post] @doc(description: "An array of post that match the specified search criteria.")
 }

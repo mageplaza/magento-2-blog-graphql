@@ -39,7 +39,7 @@
                 <item name="comments" xsi:type="object">
                     Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
                 </item>
-                <item name="products" xsi:type="object">
+                <item name="blog_products" xsi:type="object">
                     Mageplaza\BlogGraphQl\Model\Resolver\FilterArgument
                 </item>
             </argument>

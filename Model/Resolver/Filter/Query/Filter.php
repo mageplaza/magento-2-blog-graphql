@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace Mageplaza\BlogGraphQl\Model\Resolver\Filter\Query;
 
+use Magento\Catalog\Model\Product as ProductModel;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Mageplaza\Blog\Model\Category as CategoryModel;
 use Mageplaza\Blog\Model\Post as PostModel;
@@ -134,6 +135,24 @@ class Filter
         $listArray = [];
         /** @var PostModel|CategoryModel|TagModel|TopicModel $post */
         foreach ($list->getItems() as $item) {
+            $item->load($item->getId());
+            $item->getUrlImage();
+            $item->getAuthorUrl();
+            $item->getAuthorName();
+            $item->getViewTraffic();
+            $item->getAuthorUrlKey();
+
+            if ($item instanceof ProductModel) {
+                $images = $item->getMediaGalleryImages()->getSize() ? $item->getMediaGalleryImages() : [];
+                $imagesData = [];
+                if (is_object($images)) {
+                    foreach ($images->getItems() as $it) {
+                        $imagesData[] = $it->getUrl();
+                    }
+                }
+                $item->setData('images', $imagesData);
+            }
+
             $listArray[$item->getId()]          = $item->getData();
             $listArray[$item->getId()]['model'] = $item;
         }
