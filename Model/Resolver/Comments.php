@@ -29,6 +29,8 @@ use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\Resolver\Argument\SearchCriteria\Builder as SearchCriteriaBuilder;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
+use Magento\Store\Model\Store;
+use Mageplaza\Blog\Model\Config\Source\Comments\Status;
 use Mageplaza\Blog\Model\ResourceModel\Comment\CollectionFactory;
 
 /**
@@ -76,18 +78,30 @@ class Comments implements ResolverInterface
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $this->validateArgs($args);
+        unset($args['filter']['user_email'], $args['filter']['entity_id']);
         $searchCriteria = $this->searchCriteriaBuilder->build('comments', $args);
         $searchCriteria->setCurrentPage($args['currentPage']);
         $searchCriteria->setPageSize($args['pageSize']);
         $collection = $this->collectionFactory->create();
+        $storeId    = (int) $context->getExtensionAttributes()->getStore()->getId();
+        $collection->addFieldToFilter('status', Status::APPROVED)
+            ->addFieldToFilter('store_ids', [
+                ['finset' => Store::DEFAULT_STORE_ID],
+                ['finset' => $storeId]
+            ]);
         $this->collectionProcessor->process($searchCriteria, $collection);
         $collection->setSearchCriteria($searchCriteria);
 
         $pageInfo = $this->getPageInfo($collection, $searchCriteria, $args);
 
+        $items = [];
+        foreach ($collection->getItems() as $item) {
+            $items[] = array_merge($item->getData(), ['user_email' => null, 'entity_id' => null]);
+        }
+
         return [
             'total_count' => $collection->getTotalCount(),
-            'items'       => $collection->getItems(),
+            'items'       => $items,
             'pageInfo'    => $pageInfo
         ];
     }
